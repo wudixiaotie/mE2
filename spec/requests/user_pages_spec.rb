@@ -1,13 +1,24 @@
 require 'spec_helper'
 
-describe 'UserPages' do
+describe UsersController do
 
 	subject { page }
+
+	# shared examples
+	shared_examples_for 'all user page' do
+		it { should have_selector('h1', text: h1) }
+		it { should have_title(full_title(page_title)) }
+	end
 
   describe 'Sign up page' do
     before { visit signup_path }
 
-    it { should have_content('Sign up') }
-    it { should have_title(full_title('Sign up')) }
+    let(:h1) { 'Sign up' }
+    let(:page_title) { 'Sign up' }
+  end
+
+  # test link
+  it 'should have the right links on the layout' do
+  	visit signup_path
   end
 end
