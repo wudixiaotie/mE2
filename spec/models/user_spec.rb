@@ -24,12 +24,6 @@ describe User do
   	before { @user.email = ' ' }
   	it { should_not be_valid }
   end
-  describe 'when password is not present' do
-  	before do
-  		@user.update_attributes(password: ' ', password_confirmation: ' ')
-  	end
-  	it { should_not be_valid }
-  end
 
   describe 'when name is too long' do
   	before { @user.name = 'a' * 51 }
@@ -53,7 +47,7 @@ describe User do
   describe 'when email format is valid' do
   	it 'should be valid' do
   		addresses = %w[user@foo.COM A_US-ER@f.b.org frst.lst@foo.jp
-  			a+b@baz.cn oyes@dfg.d-dd.cn]
+  			a+b@baz.cn oyes@dfg.dkdd.cn]
   		addresses.each do |valid_address|
   			@user.email = valid_address
   			expect(@user).to be_valid
@@ -71,12 +65,14 @@ describe User do
   	it { should_not be_valid }
   end
 
-  describe 'when email upcase' do
-  	it 'should downcase' do
-  		@user.email = 'ASF@DSF.COM'
-  		@user.save
-  		expect(@user.email).to match('asf@dsf.com')
-  	end
+  describe 'when email upcase' do  
+    let(:upcase_email) { 'ASF@DSF.COM' }
+
+    it 'should be saved as all lower-case' do
+      @user.email = upcase_email
+      @user.save
+      expect(@user.reload.email).to eq upcase_email.downcase
+    end
   end
 
   describe 'with a password that\'s too short' do
