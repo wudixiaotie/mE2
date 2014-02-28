@@ -17,8 +17,5 @@ describe UsersController do
     let(:page_title) { 'Sign up' }
   end
 
-  # test link
-  it 'should have the right links on the layout' do
-  	visit signup_path
-  end
+  # 
 end
