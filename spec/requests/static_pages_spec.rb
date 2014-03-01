@@ -13,6 +13,7 @@ describe StaticPagesController do
   describe 'Home page' do
     before { visit root_path }
 
+    it_should_behave_like 'all static pages'
     let(:h1) { 'Welcome to the mE2' }
     let(:page_title) { '' }
     it { should_not have_title('| Home') }
@@ -21,6 +22,7 @@ describe StaticPagesController do
   describe 'Help page' do
     before { visit help_path }
 
+    it_should_behave_like 'all static pages'
     let(:h1) { 'Help' }
     let(:page_title) { 'Help' }
   end
@@ -28,6 +30,7 @@ describe StaticPagesController do
   describe 'About page' do
     before { visit about_path }
 
+    it_should_behave_like 'all static pages'
     let(:h1) { 'About us' }
     let(:page_title) { 'About us' }
   end
@@ -35,6 +38,7 @@ describe StaticPagesController do
   describe 'Contact page' do
     before { visit contact_path }
 
+    it_should_behave_like 'all static pages'
     let(:h1) { 'Contact' }
     let(:page_title) { 'Contact' }
   end
