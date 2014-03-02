@@ -10,8 +10,7 @@ class UsersController < ApplicationController
 
       @message = 'A email has been sent to your account, 
         which is to verify the onwership of the account, 
-        please follow the instruction in the mail. Thank you!
-        <a href="asdf">hhhhh</a>'
+        please follow the instruction in the mail. Thank you!'
       
       # send email
       param_hash = { id: @user.id }
