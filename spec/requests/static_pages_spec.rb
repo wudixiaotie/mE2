@@ -56,10 +56,10 @@ describe StaticPagesController do
     should have_title(full_title(''))
     click_link 'Help'
     should have_title(full_title('Help'))
-    # click_link 'Sign in'
-    # should have_title(full_title('Sign in'))
-    # click_link 'Sign up now!'
-    # should have_title(full_title('Sign up'))
+    click_link 'Sign in'
+    should have_title(full_title('Sign in'))
+    click_link 'Sign up now!'
+    should have_title(full_title('Sign up'))
     click_link 'About'
     should have_title(full_title('About'))
     click_link 'Contact'
