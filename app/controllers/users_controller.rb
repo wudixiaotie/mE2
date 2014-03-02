@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   def create
   	@user = User.new(user_params)
     if @user.save
-      flash[:success] = 'Account created successfully!'
+      flash.now[:success] = 'Account created successfully!'
 
       @message = 'A email has been sent to your account, 
         which is to verify the onwership of the account, 
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     user = User.find(param_hash[:id])
     user.is_valid = true
 
-    flash[:success] = 'Sign up successfully!'
+    flash.now[:success] = 'Sign up successfully!'
     @message = "Now you can <a href='#{signin_path}'>sign in</a>!"
 
     render '/shared/_message'
@@ -40,22 +40,22 @@ class UsersController < ApplicationController
   	@user = User.find(params[:id])
   end
 
-  def forget_password(url_code)
-    param_hash = url_params_decode(url_code)
+  # def forget_password(url_code)
+  #   param_hash = url_params_decode(url_code)
 
-    if Time.now.to_i - param_hash[:time] > 1800
-      flash[:error] = 'This link has timed out!'
+  #   if Time.now.to_i - param_hash[:time] > 1800
+  #     flash[:error] = 'This link has timed out!'
 
-      @message = 'Resend the email!'
-    else
-      User.find(param_hash[:id])
-      flash[:success] = 'Sign up successfully!'
+  #     @message = 'Resend the email!'
+  #   else
+  #     User.find(param_hash[:id])
+  #     flash[:success] = 'Sign up successfully!'
 
-      @message = 'Now you can sign in!'
-    end
+  #     @message = 'Now you can sign in!'
+  #   end
 
-    render '/shared/_message'
-  end
+  #   render '/shared/_message'
+  # end
 
   private
   
