@@ -12,11 +12,7 @@ class UsersController < ApplicationController
         which is to verify the onwership of the account, 
         please follow the instruction in the mail. Thank you!'
       
-      # send email
-      param_hash = { id: @user.id }
-      url_code = url_params_encode(param_hash)
-      url  = "#{request.original_url}/verify_email/#{url_code}"
-      UserMailer.verify_email(@user, url).deliver
+      send_verify_email(@user)
 
   		render '/shared/_message'
   	else
@@ -64,5 +60,13 @@ class UsersController < ApplicationController
                                  :email,
                                  :password,
                                  :password_confirmation)
+  end
+
+  def send_verify_email(user)
+    @user = user
+    param_hash = { id: @user.id }
+    url_code = url_params_encode(param_hash)
+    url  = "#{request.original_url}/verify_email/#{url_code}"
+    UserMailer.verify_email(@user, url).deliver
   end
 end

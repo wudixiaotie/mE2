@@ -48,6 +48,14 @@ describe UsersController do
         it { should have_title(full_title('')) }
         it { expect(user.is_valid).to be_false }
         it { should have_content('Account created successfully!') }
+
+        it 'should send a verify email to user email account' do
+          last_email.to do
+            should have_content(user.name)
+            should have_content('You have successfully create a account at mE2')
+            should have_content('The purpose of this letter is to verify')
+          end
+        end
       end
     end
   end

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Welcome to mE2, <%= @user.name %></h1>
+    <p>
+      You have successfully create a account at mE2,
+      your username is: <%= @user.email %>.<br/>
+    </p>
+    <p>
+    	The purpose of this letter is to verify that 
+    	you are the owner of the email which you filled in.<br/>
+    </p>
+    <p>
+      To finish sign up, just follow this link: 
+      <%= link_to 'Finish Sign up mE2', @url %>.
+    </p>
+    <p>Thanks for joining and have a great day!</p>
+  </body>
+</html>

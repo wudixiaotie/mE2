@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-	default from: 'mE2'
+	default from: 'mE2<me2mailer@gmail.com>'
 
   def verify_email(user, url)
   	@user = user
