@@ -1,5 +1,6 @@
 module SessionsHelper
 	attr_writer :current_user
+	attr_accessor :keep_signed_in
 
 	def current_user
 		remember_token = User.encrypt(cookies[:remember_token])
@@ -23,4 +24,22 @@ module SessionsHelper
 		self.current_user = nil
 		cookies.delete(:remember_token)
 	end
+
+	# private
+
+	# def remember_token_in_session=
+	# 	if keep_signed_in
+	# 		cookies.permanent[:remember_token] = remember_token
+	# 	else
+	# 		session[:remember_token] = remember_token
+	# 	end
+	# end
+
+	# def remember_token_in_session
+	# 	if keep_signed_in
+	# 		cookies[:remember_token]
+	# 	else
+	# 		session[:remember_token]
+	# 	end
+	# end
 end

@@ -17,6 +17,7 @@ ME2::Application.routes.draw do
   get     '/users/verify_email/:url_code' => 'users#verify_email'
   get     '/signin'                       => 'sessions#new'
   delete  '/signout'                      => 'sessions#destroy'
+  get     'password_reset/new'
 
   
   # The priority is based upon order of creation: first created -> highest priority.
