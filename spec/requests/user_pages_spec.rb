@@ -21,15 +21,15 @@ describe UsersController do
 
         it { should have_title(full_title('Sign up')) }
         it { should have_content('Sign up') }
-        it { should have_content('* Name can\'t be blank') }
-        it { should have_content('* Email can\'t be blank') }
-        it { should have_content('* Email is invalid') }
-        it { should have_content('* Password can\'t be blank') }
-        it { should have_content('* Password is too short (minimum is 6 characters)') }
+        it { should have_content('Name can\'t be blank') }
+        it { should have_content('Email can\'t be blank') }
+        it { should have_content('Email is invalid') }
+        it { should have_content('Password can\'t be blank') }
+        it { should have_content('Password is too short (minimum is 6 characters)') }
       end
     end
 
-	  describe 'when input valid info' do	  	
+	  describe 'when input valid info' do
       before do
     	  fill_in 'Name', 				with: 'Example User'
     	  fill_in 'Email',				with: 'user@example.com'
