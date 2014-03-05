@@ -1,5 +1,5 @@
 <% provide(:title, 'Verify email') %>
-<%= form_tag verify_emails_path do %>
+<%= form_tag verify_email_index_path do %>
 	<%= content_tag(:div, 'Warning! Please verify your email first.', class: "alert alert-warning") %>
 	
 	<p>Your email account is <%= content_tag :b, session[:user_email] %></p>

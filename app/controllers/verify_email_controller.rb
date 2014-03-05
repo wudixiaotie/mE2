@@ -1,4 +1,4 @@
-class VerifyEmailsController < ApplicationController
+class VerifyEmailController < ApplicationController
 	@message = 'A email has been sent to your account, 
     which is to verify the onwership of the account, 
     please follow the instruction in the mail. Thank you!'

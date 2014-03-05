@@ -1,8 +1,10 @@
 ME2::Application.routes.draw do
+  get "verify_email/new"
+  get "password_reset/new"
   root 'static_pages#home'
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
-  resources :verify_emails, only: [:new, :create, :edit, :show]
+  resources :verify_email, only: [:new, :create, :edit, :show]
 
   get     '/help'                       => 'static_pages#help'
   get     '/about'                      => 'static_pages#about'
