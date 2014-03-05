@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
 	before_save :email_downcase
-	before_create :create_remember_token
+	before_create do		
+		self.sign_in_token = User.token_encrypt(User.new_token)
+	end
 	
 	validates :name, 	presence: true, length: { maximum: 50 }
 
@@ -13,21 +15,28 @@ class User < ActiveRecord::Base
 	has_secure_password
 	validates :password, length: { minimum: 6 }
 
-	def User.new_remember_token
+	def User.new_token
 		SecureRandom.urlsafe_base64
 	end
 
-	def User.encrypt(token)
+	def User.token_encrypt(token)
     Digest::SHA1.hexdigest(token.to_s)
+  end
+
+  def send_verify_email
+  	verify_email_token = User.token_encrypt(User.new_token)
+		self.verify_email_token = verify_email_token
+		save
+    UserMailer.verify_email(self).deliver
+  end
+
+  def send_password_reset_email
+    UserMailer.password_reset_email(self).deliver
   end
 
 	private
 
 		def email_downcase
 			self.email.downcase!
-		end
-
-		def create_remember_token
-			self.remember_token = User.encrypt(User.new_remember_token)
 		end
 end

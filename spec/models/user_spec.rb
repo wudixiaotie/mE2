@@ -16,7 +16,9 @@ describe User do
 	it { should respond_to(:email) }
 	it { should respond_to(:authenticate) }
   it { should respond_to(:is_valid) }
-  it { should respond_to(:remember_token) }
+  it { should respond_to(:sign_in_token) }
+  it { should respond_to(:verify_email_token) }
+  it { should respond_to(:password_reset_token) }
 	it { should be_valid }
 
   describe 'when name is not present' do
@@ -99,8 +101,28 @@ describe User do
     end
   end
 
-  describe 'remember token' do
+  describe 'create token when create' do
     before { @user.save }
-    its(:remember_token) { should_not be_blank }
+    its(:sign_in_token) { should_not be_blank }
+  end
+
+  describe "#send_password_reset" do
+
+    it "generates a unique password_reset_token each time" do
+      @user.send_password_reset_email
+      last_token = @user.password_reset_token
+      @user.send_password_reset_email
+      @user.password_reset_token.should_not eq(last_token)
+    end
+
+    it "saves the time the password reset was sent" do
+      @user.send_password_reset_email
+      @user.reload.password_reset_sent_at.should be_present
+    end
+
+    it "delivers email to user" do
+      @user.send_password_reset_email
+      last_email.to.should include (@user.email)
+    end
   end
 end

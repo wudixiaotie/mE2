@@ -1,20 +1,15 @@
 class UserMailer < ActionMailer::Base
 	default from: 'mE2<me2mailer@gmail.com>'
 
-  def verify_email(user, url)
+  def verify_email(user)
   	@user = user
-    @url = url
 
   	mail(to: user.email, subject: 'Verify your email account!')
   end
 
-  def forget_password_email(user)
+  def password_reset_email(user)
   	@user = user
 
-  	param_hash = { id: user.id, time: Time.now.to_i }
-  	url_code = url_params_encode(param_hash)
-  	@url  = "#{request.original_url}/verify_email/#{url_code}"
-
-  	mail(to: user.email, subject: 'Verify your email account!')
+  	mail(to: user.email, subject: 'Reset your password!')
   end
 end

@@ -2,20 +2,20 @@ module SessionsHelper
 	attr_writer :current_user
 
 	def current_user
-		remember_token = User.encrypt(cookies[:remember_token])
-		@current_user ||= User.find_by(remember_token: remember_token)
+		sign_in_token = User.token_encrypt(cookies[:sign_in_token])
+		@current_user ||= User.find_by(sign_in_token: sign_in_token)
 	end
 
 	def sign_in(user, keep_signed_in)
-		remember_token = User.new_remember_token
+		sign_in_token = User.new_token
 
 		if keep_signed_in
-			cookies.permanent[:remember_token] = remember_token
+			cookies.permanent[:sign_in_token] = sign_in_token
 		else
-			cookies[:remember_token] = remember_token
+			cookies[:sign_in_token] = sign_in_token
 		end
 
-		user.update_attribute(:remember_token, User.encrypt(remember_token))
+		user.update_attribute(:sign_in_token, User.token_encrypt(sign_in_token))
 		self.current_user = user
 	end
 
@@ -24,9 +24,9 @@ module SessionsHelper
 	end
 
 	def sign_out
-		self.current_user.update_attribute(:remember_token,
-																				User.encrypt(User.new_remember_token))
+		self.current_user.update_attribute(:sign_in_token,
+																				User.token_encrypt(User.new_token))
 		self.current_user = nil
-		cookies.delete(:remember_token)
+		cookies.delete(:sign_in_token)
 	end
 end

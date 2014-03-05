@@ -15,7 +15,7 @@
     </p>
     <p>
       To finish sign up, just follow this link: 
-      <%= link_to 'Finish Sign up mE2', @url %>.
+      <%= link_to 'Finish Sign up mE2', verify_email_url(@user.verify_email_token) %>.
     </p>
     <p>Thanks for joining and have a great day!</p>
   </body>

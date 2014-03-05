@@ -44,5 +44,35 @@ describe "AuthenticationPages" do
 				it { should have_link('Sign in') }
 			end
 		end
+
+		describe 'click keep me when signed in' do
+			pending 'how to test it'
+		end
+
+		describe 'user hasn\'t verify email when signed in' do
+			let(:user) { FactoryGirl.create(:user) }
+			before do
+				user.is_valid = false
+				user.save
+				fill_in 'Email',    with: user.email
+				fill_in 'Password', with: user.password
+				click_button 'Sign in'
+			end
+
+			it { should have_title(full_title('Verify email')) }
+			it { should have_selector('div.alert.alert-warning') }
+			it { should have_content('Warning! Please verify your email first.') }
+
+			describe 'click_link send verify email again' do
+				before { click_button 'resend email' }
+
+				it 'should resend a email' do
+					last_email.to do
+						should have_content(user.name)
+						should have_content('You have successfully create a account at mE2')
+					end
+				end
+			end
+		end
 	end
 end
