@@ -9,8 +9,8 @@
 		<div class="form-group">
 			<%= label_tag :email, nil, class: "col-sm-2 control-label" %>
 			<div class="col-sm-10">
-				<%= text_field_tag :email, nil, class: 'form-control',
-																				placeholder: 'Enter email' %>
+				<%= email_field_tag :email, nil, class: 'form-control',
+																				 placeholder: 'Enter email' %>
 			</div>
 		</div>
 
@@ -20,7 +20,7 @@
 				<%= password_field_tag :password, nil, class: 'form-control',
 																							 placeholder: 'Enter password' %>
 				<span class="help-block">
-					<%= link_to "Forgotten password?", '#new_password_reset_path' %>
+					<%= link_to "Forgotten password?", new_password_reset_path %>
 				</span>
 			</div>
 		</div>
@@ -50,5 +50,4 @@
 		<% end -%>
 
 	</div>
-</form>
 </div>

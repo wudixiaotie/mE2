@@ -19,6 +19,7 @@ describe User do
   it { should respond_to(:sign_in_token) }
   it { should respond_to(:verify_email_token) }
   it { should respond_to(:password_reset_token) }
+  it { should respond_to(:password_reset_sent_at) }
 	it { should be_valid }
 
   describe 'when name is not present' do

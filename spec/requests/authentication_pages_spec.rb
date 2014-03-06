@@ -64,7 +64,7 @@ describe "AuthenticationPages" do
 			it { should have_content('Warning! Please verify your email first.') }
 
 			describe 'click_link send verify email again' do
-				before { click_button 'resend email' }
+				before { click_button 'Resend email' }
 
 				it 'should resend a email' do
 					last_email.to do
@@ -72,6 +72,38 @@ describe "AuthenticationPages" do
 						should have_content('You have successfully create a account at mE2')
 					end
 				end
+			end
+		end
+
+		describe 'forgot my password' do
+			before { click_link 'Forgotten password?' }
+
+			it { should have_title(full_title('Reset password')) }
+
+			describe 'click button send password reset email' do
+				before { click_button 'Send email' }
+
+				it { should have_selector('div.alert.alert-danger') }
+			end
+
+			describe 'fill uncorrect email before click button send password reset email' do
+				before do
+					fill_in 'Email', with: '123@user.email'
+				  click_button 'Send email'
+				end
+
+				it { should have_selector('div.alert.alert-danger') }
+				it { should have_content('doesn\'t exist') }
+			end
+
+			describe 'fill correct email before click button send password reset email' do
+				let(:user) { FactoryGirl.create(:user) }
+				before do
+					fill_in 'Email', with: user.email
+				  click_button 'Send email'
+				end
+				
+				it { should have_selector('div.alert.alert-success') }
 			end
 		end
 	end

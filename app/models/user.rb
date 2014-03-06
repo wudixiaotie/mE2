@@ -25,12 +25,16 @@ class User < ActiveRecord::Base
 
   def send_verify_email
   	verify_email_token = User.token_encrypt(User.new_token)
-		self.verify_email_token = verify_email_token
-		save
+  	self.verify_email_token = verify_email_token
+  	self.save!(validate: false)
     UserMailer.verify_email(self).deliver
   end
 
   def send_password_reset_email
+  	password_reset_token = User.token_encrypt(User.new_token)
+  	self.password_reset_token = password_reset_token
+  	self.password_reset_sent_at = Time.zone.now
+  	self.save!(validate: false)
     UserMailer.password_reset_email(self).deliver
   end
 
