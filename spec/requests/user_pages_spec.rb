@@ -50,11 +50,8 @@ describe UsersController do
         it { should have_content('Account created successfully!') }
 
         it 'should send a verify email to user email account' do
-          last_email.to do
-            should have_content(user.name)
-            should have_content('You have successfully create a account at mE2')
-            should have_content('The purpose of this letter is to verify')
-          end
+          last_email.to.should eq([user.email])
+          last_email.subject.should eq('Verify your email account!')
         end
       end
     end
@@ -66,5 +63,17 @@ describe UsersController do
   	let(:user) { FactoryGirl.create(:user) }
     it { should have_title(full_title(user.name)) }
     it { should have_selector('h1', text: user.name) }
+  end
+
+  describe 'use verify email to true is_valid' do
+    let(:user) { FactoryGirl.create(:user) }
+    before do
+      user.is_valid = false
+      user.save
+      user.send_verify_email
+      visit verify_email_path(user.reload.verify_email_token)
+    end
+
+    it { user.reload.is_valid.should be_true }
   end
 end

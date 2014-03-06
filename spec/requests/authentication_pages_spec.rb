@@ -67,10 +67,8 @@ describe "AuthenticationPages" do
 				before { click_button 'Resend email' }
 
 				it 'should resend a email' do
-					last_email.to do
-						should have_content(user.name)
-						should have_content('You have successfully create a account at mE2')
-					end
+					last_email.to.should eq([user.email])
+					last_email.subject.should eq('Verify your email account!')
 				end
 			end
 		end

@@ -27,6 +27,8 @@ class VerifyEmailController < ApplicationController
     
     user.is_valid = true
 
+    user.save!(validate: false)
+
     message = "Sign up successfully! Now you can sign in!"
 
     redirect_to signin_path, flash: { success: message }

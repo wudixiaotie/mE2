@@ -107,7 +107,7 @@ describe User do
     its(:sign_in_token) { should_not be_blank }
   end
 
-  describe "#send_password_reset" do
+  describe "send_password_reset" do
 
     it "generates a unique password_reset_token each time" do
       @user.send_password_reset_email
@@ -123,7 +123,8 @@ describe User do
 
     it "delivers email to user" do
       @user.send_password_reset_email
-      last_email.to.should include (@user.email)
+      last_email.to.should eq([@user.email])
+      last_email.subject.should eq('Reset your password!')
     end
   end
 end
