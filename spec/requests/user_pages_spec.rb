@@ -65,7 +65,7 @@ describe UsersController do
     it { should have_selector('h1', text: user.name) }
   end
 
-  describe 'use verify email to true is_valid' do
+  describe 'Verify email' do
     let(:user) { FactoryGirl.create(:user) }
     before do
       user.is_valid = false
@@ -75,5 +75,18 @@ describe UsersController do
     end
 
     it { user.reload.is_valid.should be_true }
+  end
+
+  describe 'Reset password' do
+    let(:user) { FactoryGirl.create(:user) }
+    before do
+      user.send_password_reset_email
+      visit edit_password_reset_path(user.reload.password_reset_token)
+      fill_in 'Password', with: 'abcd1234'
+      fill_in 'Confirmation', with: 'abcd1234'
+      click_button 'Reset password'
+    end
+
+    it { user.reload.authenticate('abcd1234').should eq(user) }
   end
 end
