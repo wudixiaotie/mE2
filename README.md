@@ -6,3 +6,4 @@ URL: http://me-2.herokuapp.com
 3.Stay sign in
 4.forgetten password
 4.ENV['SENDGRID_USERNAME'] and ENV['SENDGRID_PASSWORD'] how to save it 
+5.del routes session

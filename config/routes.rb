@@ -1,7 +1,7 @@
 ME2::Application.routes.draw do
   root 'static_pages#home'
-  resources :users
-  resources :sessions, only: [:new, :create, :destroy]
+  resources :users, except: [:new]
+  resources :sessions, only: [:create]
   resources :verify_email, only: [:new, :create, :edit, :show]
   resources :password_reset, only: [:new, :create, :edit, :update]
 

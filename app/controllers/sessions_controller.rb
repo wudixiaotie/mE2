@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
 		if user && user.authenticate(params[:password])
 			if user.is_valid
 				sign_in(user, keep_signed_in)
-				redirect_to user
+				redirect_back_or user
 			else
 				session[:user_email] = user.email
 				redirect_to new_verify_email_path
