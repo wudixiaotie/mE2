@@ -7,7 +7,7 @@ describe User do
 											email:                 'user@example.com',
 											password:              'foobar',
 											password_confirmation: 'foobar',
-                      is_valid:              false)
+                      verified:              false)
 	end
 
 	subject { @user }
@@ -15,12 +15,15 @@ describe User do
 	it { should respond_to(:name) }
 	it { should respond_to(:email) }
 	it { should respond_to(:authenticate) }
-  it { should respond_to(:is_valid) }
+  it { should respond_to(:verified) }
   it { should respond_to(:sign_in_token) }
   it { should respond_to(:verify_email_token) }
   it { should respond_to(:password_reset_token) }
   it { should respond_to(:password_reset_sent_at) }
+  it { should respond_to(:admin) }
 	it { should be_valid }
+  it { should_not be_verified }
+  it { should_not be_admin }
 
   describe 'when name is not present' do
   	before { @user.name = ' ' }

@@ -15,6 +15,9 @@ class User < ActiveRecord::Base
 	has_secure_password
 	validates :password, length: { minimum: 6 }
 
+	# paginates_per for kaminari
+	paginates_per 10
+
 	def User.new_token
 		SecureRandom.urlsafe_base64
 	end

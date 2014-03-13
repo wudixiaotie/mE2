@@ -17,6 +17,7 @@
 
 # Ignore other unneeded files.
 database.yml
+environment_variables.yml
 doc/
 *.swp
 *~

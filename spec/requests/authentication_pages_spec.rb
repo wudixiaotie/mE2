@@ -19,6 +19,8 @@ describe 'AuthenticationPages' do
 
 			it { should have_title(full_title('Sign in')) }
 			it { should have_selector('div.alert.alert-danger') }
+			it { should_not have_selector('a',		text: 'Settings') }
+			it { should_not have_link('Sign out', href: signout_path) }
 
 			describe 'after visiting another page' do
 				before { click_link 'Home' }
@@ -32,6 +34,7 @@ describe 'AuthenticationPages' do
 
 			it { should have_title(full_title(user.name))}
 			it { should have_link('Profile',     href: user_path(user)) }
+      it { should have_link('Users',       href: users_path) }
 			it { should have_link('Settings',    href: edit_user_path(user)) }
 			it { should have_link('Sign out',    href: signout_path) }
 			it { should_not have_link('Sign in', href: signin_path) }
@@ -39,6 +42,29 @@ describe 'AuthenticationPages' do
 			describe 'followed by signout' do
 				before { click_link 'Sign out' }
 				it { should have_link('Sign in') }
+			end
+
+			describe 'can\'t visit new action' do
+				before { visit signup_path }
+				it 'should redirect to root' do
+					expect(page.title).to eq(full_title(''))
+				end
+			end
+
+			describe 'can\'t visit create action' do
+	      let(:params) do
+	        { user: { name: 'ffffff',
+	        					email: 'fff@example.com',
+	        					password: user.password,
+	                  password_confirmation: user.password } }
+	      end
+				before do
+					sign_in user, no_capybara: true
+					post users_path, params
+				end
+				it 'should redirect to root' do
+					expect(response).to redirect_to(root_url)
+				end
 			end
 		end
 
@@ -49,7 +75,7 @@ describe 'AuthenticationPages' do
 		describe 'user hasn\'t verify email when signed in' do
 			let(:user) { FactoryGirl.create(:user) }
 			before do
-				user.is_valid = false
+				user.verified = false
 				user.save
 				sign_in user
 			end
@@ -106,8 +132,8 @@ describe 'AuthenticationPages' do
 		describe 'for non-sign-in users' do
 			let(:user) { FactoryGirl.create(:user) }
 
-			describe 'in the Users controller' do
-				before { visit edit_user_path(user) }
+			describe 'visiting the user index' do
+				before { visit users_path }
 				it { should have_title('Sign in') }
 			end
 
@@ -117,16 +143,23 @@ describe 'AuthenticationPages' do
 			end
 
 			describe 'when attempt to visit a protected page' do
-				before do
-					visit edit_user_path(user)
-					fill_in 'Email',    with: user.email
-					fill_in 'Password', with: user.password
-					click_button 'Sign in'
-				end
+				before { visit edit_user_path(user) }
+				it { should have_title('Sign in') }
 
 				describe 'after sign in' do
+					before { sign_in user }
 					it 'should render the desired protected page' do
 				    expect(page).to have_title('Edit user')
+					end
+
+					describe 'resign in will redirect to profile' do
+						before do
+							visit about_path
+							click_link 'Sign out'
+							sign_in user
+						end
+
+						it { should have_title(full_title(user.name)) }
 					end
 				end
 			end
@@ -146,6 +179,18 @@ describe 'AuthenticationPages' do
       describe 'submitting a PATCH request to the Users#update action' do
         before { patch user_path(wrong_user) }
         specify { expect(response).to redirect_to(root_url) }
+      end
+    end
+
+    describe "as non-admin user" do
+      let(:user) { FactoryGirl.create(:user) }
+      let(:non_admin) { FactoryGirl.create(:user) }
+
+      before { sign_in non_admin, no_capybara: true }
+
+      describe "submitting a DELETE request to the Users#destroy action" do
+        before { delete user_path(user) }
+        specify { expect(response).to redirect_to(root_path) }
       end
     end
 	end

@@ -10,6 +10,10 @@ gem 'jquery-rails', '2.2.1'
 gem 'turbolinks', '1.1.1'
 gem 'jbuilder', '1.0.2'
 gem 'bcrypt-ruby', '3.1.2'
+gem "faker", '1.3.0'
+gem 'kaminari', '0.15.1'
+gem 'kaminari-bootstrap', '3.0.1'
+# gem 'client_side_validations', '3.2.6'
 
 group :development, :test do
   gem 'sqlite3', '1.3.8'

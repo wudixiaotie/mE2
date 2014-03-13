@@ -1,0 +1,10 @@
+<% provide(:title, 'Find user') %>
+<h1>Find user</h1>
+
+<%= paginate @users %>
+
+<ul class='users'>
+  <%= render @users %>
+</ul>
+
+<%= paginate @users %>

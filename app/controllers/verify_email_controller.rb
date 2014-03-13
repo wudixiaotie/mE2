@@ -3,6 +3,8 @@ class VerifyEmailController < ApplicationController
 	end
 
   def create
+    session.delete(:user_email)
+
     user = User.find_by(email: params[:user_email])
 
     user.send_verify_email
@@ -25,7 +27,7 @@ class VerifyEmailController < ApplicationController
   def show
     user = User.find_by(verify_email_token: params[:id])
     
-    user.is_valid = true
+    user.verified = true
 
     user.save!(validate: false)
 

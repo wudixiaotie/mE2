@@ -9,6 +9,8 @@ describe UsersController do
 
     it { should have_title(full_title('Sign up')) }
     it { should have_selector('h1', text: 'Sign up') }
+    it { should_not have_selector("input[type='email'][disabled='disabled']") }
+    it { should have_selector("input[type='email'][placeholder='Enter email']") }
     let(:submit) { "Create my account" }
 
     describe 'when input invalid info' do
@@ -46,7 +48,7 @@ describe UsersController do
         let(:user) { User.find_by(email: 'user@example.com') }
 
         it { should have_title(full_title('')) }
-        it { expect(user.is_valid).to be_false }
+        it { expect(user.verified).to be_false }
         it { should have_content('Account created successfully!') }
 
         it 'should send a verify email to user email account' do
@@ -68,13 +70,13 @@ describe UsersController do
   describe 'Verify email' do
     let(:user) { FactoryGirl.create(:user) }
     before do
-      user.is_valid = false
+      user.verified = false
       user.save
       user.send_verify_email
       visit verify_email_path(user.reload.verify_email_token)
     end
 
-    it { user.reload.is_valid.should be_true }
+    it { user.reload.verified.should be_true }
   end
 
   describe 'Reset password' do
@@ -91,7 +93,10 @@ describe UsersController do
   end
 
   describe 'Edit page' do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryGirl.create(:user, name: 'Miccall',
+                                           email: 'miccall@example.com',
+                                           password: 'foobar',
+                                           password_confirmation: 'foobar') }
     before do
       sign_in user
       visit edit_user_path(user)
@@ -101,6 +106,8 @@ describe UsersController do
       it { should have_title('Edit user') }
       it { should have_content('Update your profile') }
       it { should have_link('change', href: 'http://gravatar.com/emails') }
+      it { should have_selector("input[type='email'][disabled='disabled']") }
+      it { should_not have_selector("input[type='email'][placeholder='Enter email']") }
     end
 
     describe 'with invalid information' do
@@ -123,8 +130,92 @@ describe UsersController do
       it { should have_title(full_title('Sign in')) }
       it { should have_selector('div.alert.alert-success') }
       it { should have_link('Sign in', href: signin_path) }
-      specify { expect(user.reload.name).to  eq new_name }
+      specify { expect(user.reload.name).to eq new_name }
       specify { expect(user.reload.email).to eq old_email }
+    end
+
+    describe 'set admin to true' do
+      let(:params) do
+        { user: { admin: true, password: user.password,
+                  password_confirmation: user.password } }
+      end
+      before do
+        sign_in user, no_capybara: true
+        patch user_path(user), params
+      end
+
+      specify { expect(user.reload).not_to be_admin }
+    end
+  end
+
+  describe 'Index page' do
+    let(:user) { FactoryGirl.create(:user) }
+    before do
+      sign_in user
+      FactoryGirl.create(:user, name: 'Bob', email: 'bob@exmaple.com')
+      FactoryGirl.create(:user, name: 'Tom', email: 'tom@exmaple.com')
+      FactoryGirl.create(:user, name: "Ben", email: "ben@example.com")
+      visit users_path
+    end
+
+    it { should have_title(full_title('Find user')) }
+    it { should have_content('Find user') }
+
+    it 'should have all users' do
+      User.all.each do |u|
+        expect(page).to have_selector('li', text: u.name)
+      end
+    end
+
+    describe 'pagination' do
+
+      before(:all) { 20.times { FactoryGirl.create(:user) } }
+      after(:all) { User.delete_all }
+
+      it { should have_selector('ul.pagination') }
+
+      it 'should list 10 users in the page' do
+        User.page(1).each do |u|
+          expect(page).to have_selector('li', text: u.name)
+        end
+      end
+
+      it 'should not list more than 10 users in the page' do
+        User.page(2).each do |u|
+          expect(page).not_to have_selector('li', text: u.name)
+        end
+      end
+    end
+
+    describe 'delete link' do
+      it { should_not have_link('delete') }
+
+      describe 'as a admin' do
+        let(:admin) { FactoryGirl.create(:admin) }
+        before do
+          sign_in admin
+          visit users_path
+        end
+
+        it { should have_link('delete', href: user_path(User.first)) }
+        it 'should be able delete a user' do
+          expect do
+            click_link('delete', match: :first)
+          end.to change(User, :count).by(-1)
+        end
+        it { should_not have_link('delete', href: user_path(admin)) }
+
+        describe 'should not delete itself' do
+          before do
+            sign_in admin, no_capybara: true
+            delete user_path(admin)
+          end
+
+          it 'should redirect to root' do
+            expect(response).to redirect_to(root_url)
+          end
+        end
+      end
     end
   end
 end

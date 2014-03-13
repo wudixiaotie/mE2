@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
 		keep_signed_in = !params[:keep_signed_in].nil?
 		
 		if user && user.authenticate(params[:password])
-			if user.is_valid
+			if user.verified?
 				sign_in(user, keep_signed_in)
 				redirect_back_or user
 			else

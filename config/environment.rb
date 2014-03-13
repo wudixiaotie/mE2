@@ -1,14 +1,17 @@
 # Load the Rails application.
 require File.expand_path('../application', __FILE__)
 
+# Load environment varibles
+YAML.load_file("#{::Rails.root}/config/environment_variables.yml")[::Rails.env].each {|k,v| ENV[k] = v }
+
 # config mail
 ActionMailer::Base.delivery_method = :smtp
 ActionMailer::Base.smtp_settings = {
   address:              'smtp.gmail.com',
   port:                 587,
   domain:               'heroku.com',
-  user_name:            'me2mailer@gmail.com',
-  password:             '1987x1t9',
+  user_name:            ENV['GMAIL_USERNAME'],
+  password:             ENV['GMAIL_PASSWORD'],
   authentication:       'plain',
   enable_starttls_auto: true
 }
