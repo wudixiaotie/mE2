@@ -5021,6 +5021,13 @@ body {
     color: #fff;
     text-decoration: none; }
 
+.header-avatar {
+  border-radius: 50%;
+  border: 3px solid #fff;
+  margin-left: -15px;
+  margin-top: -5px;
+  width: 30px; }
+
 /* footer */
 footer {
   color: #999999; }
@@ -5033,3 +5040,13 @@ footer {
     list-style: none; }
 
 /* forms */
+/* Users index */
+.users {
+  list-style: none;
+  margin: 0; }
+  .users li {
+    overflow: auto;
+    padding: 10px 0;
+    border-top: 1px solid #eeeeee; }
+    .users li:last-child {
+      border-bottom: 1px solid #eeeeee; }
