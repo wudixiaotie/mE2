@@ -5041,12 +5041,12 @@ footer {
 
 /* forms */
 /* Users index */
-.users {
+.users-index-item {
   list-style: none;
   margin: 0; }
-  .users li {
+  .users-index-item li {
     overflow: auto;
     padding: 10px 0;
     border-top: 1px solid #eeeeee; }
-    .users li:last-child {
+    .users-index-item li:last-child {
       border-bottom: 1px solid #eeeeee; }
