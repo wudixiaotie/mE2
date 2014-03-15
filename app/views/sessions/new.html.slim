@@ -1,0 +1,43 @@
+- provide :title, "Sign in"
+h1.text-center Sign in
+div.row
+  div.col-sm-offset-3.col-sm-6
+    = form_tag(sessions_path,
+               class: "form-horizontal",
+               role: "form") do
+
+      div.form-group
+        = label_tag(:email, nil,
+                    class: "col-sm-3 control-label")
+        div.col-sm-9
+          = email_field_tag(:email, params[:email],
+                            class: "form-control",
+                            placeholder: "Enter email")
+
+      div.form-group
+        = label_tag(:password, nil,
+                    class: "col-sm-3 control-label")
+        div.col-sm-9
+          = password_field_tag(:password, nil,
+                               class: "form-control",
+                               placeholder: "Enter password")
+          span.help-block
+            = link_to("Forgotten password?",
+                      new_password_reset_path)
+
+      div.form-group
+        div.col-sm-offset-3.col-sm-9
+          div.checkbox
+            label
+              = check_box_tag :keep_signed_in, nil, false
+              | Keep me signed in
+
+      div.form-group
+        div.col-sm-offset-3.col-sm-9
+          = submit_tag("Sign in",
+                       class: "btn btn-lg btn-primary")
+
+      div.form-group
+        div.col-sm-offset-3.col-sm-9
+          | New user?
+          = link_to "Sign up now!", signup_path

@@ -1,0 +1,36 @@
+= render "shared/error_messages"
+
+div.form-group
+  = form.label :name, class: "col-sm-3 control-label"
+  div.col-sm-9
+    = form.text_field(:name,
+                      class: "form-control",
+                      placeholder: "Enter name")
+
+div.form-group
+  = form.label :email, class: "col-sm-3 control-label"
+  div.col-sm-9
+    - if action_name == "new" || action_name == "create"
+      = form.email_field(:email,
+                         class: "form-control",
+                         placeholder: "Enter email")
+    - else
+      = form.email_field(:email,
+                         class: "form-control",
+                         disabled: "disabled")
+
+div.form-group
+  = form.label :password, class: "col-sm-3 control-label"
+  div.col-sm-9
+    = form.password_field(:password,
+                          class: "form-control",
+                          placeholder: "Enter password")
+
+div.form-group
+  = form.label(:password_confirmation,
+               "Confirmation", 
+               class: "col-sm-3 control-label")
+  div.col-sm-9
+    = form.password_field(:password_confirmation,
+                          class: "form-control",
+                          placeholder: "Enter confirmation")

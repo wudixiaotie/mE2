@@ -1,0 +1,34 @@
+- provide :title, "Reset password"
+h1.text-center Reset password
+div.row
+  div.col-sm-offset-3.col-sm-6
+    = form_for(@user,
+               url: password_reset_path(@user.password_reset_token),
+               html: { class: "form-horizontal",
+                       role: "form" }) do |f|
+      = render "shared/error_messages"
+
+      div.form-group
+        div.col-sm-9.col-sm-offset-3
+          p
+            | Enter the new password you want to use.
+
+      div.form-group
+        = f.label :password, class: "col-sm-3 control-label"
+        div.col-sm-9
+          = f.password_field(:password,
+                             class: "form-control",
+                             placeholder: "Enter password")
+
+      div.form-group
+        = f.label(:password_confirmation,
+                  "Confirmation",
+                  class: "col-sm-3 control-label")
+        div.col-sm-9
+          = f.password_field(:password_confirmation,
+                             class: "form-control",
+                             placeholder: "Enter confirmation")
+
+      div.form-group
+        div.col-sm-10.col-sm-offset-2
+          = f.submit "Reset password", class: "btn btn-info btn-lg"

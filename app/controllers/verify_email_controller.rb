@@ -1,6 +1,6 @@
 class VerifyEmailController < ApplicationController
-	def new
-	end
+  def new
+  end
 
   def create
     session.delete(:user_email)

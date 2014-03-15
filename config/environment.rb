@@ -2,7 +2,8 @@
 require File.expand_path('../application', __FILE__)
 
 # Load environment varibles
-YAML.load_file("#{::Rails.root}/config/environment_variables.yml")[::Rails.env].each {|k,v| ENV[k] = v }
+env_yml = YAML.load_file("#{Rails.root}/config/environment_variables.yml")
+env_yml[Rails.env].each {|k,v| ENV[k] = v }
 
 # config mail
 ActionMailer::Base.delivery_method = :smtp

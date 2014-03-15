@@ -1,0 +1,62 @@
+div[class="navbar navbar-inverse navbar-fixed-top"
+    role="navigation"]
+  div.container
+    div.navbar-header
+      button[type="button"
+             class="navbar-toggle"
+             data-toggle="collapse"
+             data-target=".navbar-collapse"]
+        span.sr-only
+          | Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      = link_to("mE2",
+                root_path,
+                id: "logo",
+                class: "navbar-brand")
+    nav[class="collapse navbar-collapse bs-navbar-collapse"
+        role="navigation"]
+      form[class="navbar-form navbar-right"
+           role="search"]
+        div.form-group
+          input[type="text"
+                class="form-control"
+                placeholder="Name/Account/Post"]
+        button[type="submit"
+               class="btn btn-default"]
+          | Search
+      ul.nav.navbar-nav.navbar-right
+        li
+          = link_to "Home", root_path
+        li
+          = link_to "Help", help_path
+        - if signed_in?
+          li
+            = link_to "Users", users_path
+          li.dropdown
+            a[href="#"
+              class="dropdown-toggle"
+              data-toggle="dropdown"]
+              /! avatar
+              span
+                = gravatar_for(current_user,
+                               size: 30,
+                               class: 'header-avatar')
+                | &nbsp
+                = current_user.name
+                b.caret
+            ul.dropdown-menu
+              li
+                = link_to "Profile", current_user
+              li
+                = link_to("Settings",
+                          edit_user_path(current_user))
+              li.divider
+              li
+                = link_to("Sign out",
+                          signout_path,
+                          method: "delete")
+        - else
+          li
+            = link_to "Sign in", signin_path

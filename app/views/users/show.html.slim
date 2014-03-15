@@ -1,0 +1,8 @@
+- provide :title, @user.name
+div.row
+  aside.col-sm-4.col-xs-12
+    section
+      h1
+        = gravatar_for @user
+        | &nbsp
+        = @user.name

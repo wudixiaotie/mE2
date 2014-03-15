@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe UsersController do
 
-	subject { page }
+  subject { page }
 
   describe 'Sign up page' do
     before { visit signup_path }
@@ -14,8 +14,8 @@ describe UsersController do
     let(:submit) { "Create my account" }
 
     describe 'when input invalid info' do
-    	it 'should not create a user' do
-    	  expect { click_button submit }.not_to change(User, :count)
+      it 'should not create a user' do
+        expect { click_button submit }.not_to change(User, :count)
       end
 
       describe 'after submission' do
@@ -31,17 +31,17 @@ describe UsersController do
       end
     end
 
-	  describe 'when input valid info' do
+    describe 'when input valid info' do
       before do
-    	  fill_in 'Name', 				with: 'Example User'
-    	  fill_in 'Email',				with: 'user@example.com'
-    	  fill_in 'Password', 		with: 'foobar'
-    	  fill_in 'Confirmation', with: 'foobar'
-    	end
+        fill_in 'Name',         with: 'Example User'
+        fill_in 'Email',        with: 'user@example.com'
+        fill_in 'Password',     with: 'foobar'
+        fill_in 'Confirmation', with: 'foobar'
+      end
 
       it 'should create a user' do
-    	  expect { click_button submit }.to change(User, :count).by(1)
-    	end
+        expect { click_button submit }.to change(User, :count).by(1)
+      end
 
       describe 'after saving the user' do
         before { click_button submit }

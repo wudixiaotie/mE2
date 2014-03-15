@@ -1,0 +1,14 @@
+- provide :title, "Sign up"
+h1.text-center
+  | Sign up
+div.row
+  div.col-sm-offset-3.col-sm-6
+    = form_for(@user,
+        html: { class: "form-horizontal", role: "form" }) do |f|
+
+      = render "fields", form: f
+
+      div.form-group
+        div.col-sm-offset-3.col-sm-9
+          = f.submit "Create my account",
+                     class: "btn btn-lg btn-primary"

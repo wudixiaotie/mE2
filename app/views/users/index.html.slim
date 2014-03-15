@@ -1,0 +1,10 @@
+- provide :title, 'Find user'
+h1
+   | Find user
+
+= paginate @users
+
+ul.users-index-item
+  = render @users
+
+= paginate @users

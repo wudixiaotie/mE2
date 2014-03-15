@@ -9,16 +9,16 @@ class UsersController < ApplicationController
   end
 
   def new
-  	@user = User.new
+    @user = User.new
   end
 
   def create
-  	@user = User.new(user_params)
+    @user = User.new(user_params)
     if @user.save
-  		redirect_to edit_verify_email_path(@user)
-  	else
-  		render 'new'
-  	end
+      redirect_to edit_verify_email_path(@user)
+    else
+      render 'new'
+    end
   end
 
   def show
@@ -43,7 +43,6 @@ class UsersController < ApplicationController
   end
 
   private
-  
     def user_params
       params.require(:user).permit(:name,
                                    :email,
@@ -52,7 +51,7 @@ class UsersController < ApplicationController
     end
 
     # Before filters
-
+    
     def signed_in_user
       unless signed_in?
         store_location
