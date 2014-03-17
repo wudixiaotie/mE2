@@ -1,11 +1,11 @@
 development:
   GMAIL_USERNAME: me2mailer@gmail.com
-  GMAIL_PASSWORD: 1987x1t9
+  GMAIL_PASSWORD: abcd-1234
 
 test:
   GMAIL_USERNAME: me2mailer@gmail.com
-  GMAIL_PASSWORD: 1987x1t9
+  GMAIL_PASSWORD: abcd-1234
 
 production:
   GMAIL_USERNAME: me2mailer@gmail.com
-  GMAIL_PASSWORD: 1987x1t9
+  GMAIL_PASSWORD: abcd-1234

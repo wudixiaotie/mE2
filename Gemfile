@@ -9,7 +9,7 @@ gem 'faye', '1.0.1'
 
 # views
 gem 'slim-rails', '2.1.2'
-gem 'draper', '1.3.0'
+# gem 'draper', '1.3.0'
 
 # paginate
 gem 'kaminari', '0.15.1'
