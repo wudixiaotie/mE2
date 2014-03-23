@@ -1,0 +1,6 @@
+li
+  = link_to feed_item.user do
+    = gravatar_for(feed_item.user)
+  span.user
+    = link_to feed_item.user.name, feed_item.user
+  = render "microposts/micropost_base", micropost: feed_item

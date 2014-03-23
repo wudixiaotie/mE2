@@ -1,8 +1,21 @@
 class User < ActiveRecord::Base
+
+  # Callback
+
   before_save :email_downcase
   before_create do
     self.sign_in_token = User.token_encrypt(User.new_token)
   end
+
+  # Password
+
+  has_secure_password
+
+  # Associations
+
+  has_many :microposts, dependent: :destroy
+
+  # Validates
 
   validates :name,  presence: true, length: { maximum: 50 }
 
@@ -12,11 +25,13 @@ class User < ActiveRecord::Base
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
 
-  has_secure_password
   validates :password, length: { minimum: 6 }
 
   # paginates_per for kaminari
+
   paginates_per 10
+
+  # Token
 
   def User.new_token
     SecureRandom.urlsafe_base64
@@ -25,6 +40,8 @@ class User < ActiveRecord::Base
   def User.token_encrypt(token)
     Digest::SHA1.hexdigest(token.to_s)
   end
+
+  # Email
 
   def send_verify_email
     verify_email_token = User.token_encrypt(User.new_token)
@@ -41,9 +58,15 @@ class User < ActiveRecord::Base
     UserMailer.password_reset_email(self).deliver
   end
 
+  # feed
+  
+  def feed
+    Micropost.where("user_id = ?", self.id)
+  end
+
   private
 
-  def email_downcase
-   self.email.downcase!
- end
+    def email_downcase
+     self.email.downcase!
+    end
 end

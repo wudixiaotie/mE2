@@ -9,6 +9,13 @@ module SessionsHelper
   def current_user?(user)
     user == current_user
   end
+    
+  def signed_in_user
+    unless signed_in?
+      store_location
+      redirect_to signin_path, flash: { warning: "Please sign in." }
+    end
+  end
 
   def sign_in(user, keep_signed_in)
     sign_in_token = User.new_token

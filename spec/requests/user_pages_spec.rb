@@ -60,11 +60,20 @@ describe UsersController do
   end
 
   describe 'profile page' do
+    let(:user) { FactoryGirl.create(:user) }
+    let!(:m1) { FactoryGirl.create(:micropost, user: user, content: "Foo") }
+    let!(:m2) { FactoryGirl.create(:micropost, user: user, content: "Bar") }
+
   	before { visit user_path(user) }
 
-  	let(:user) { FactoryGirl.create(:user) }
     it { should have_title(full_title(user.name)) }
     it { should have_selector('h1', text: user.name) }
+
+    describe "micropost" do
+      it { should have_content(m1.content) }
+      it { should have_content(m2.content) }
+      it { should have_content(user.microposts.count) }
+    end
   end
 
   describe 'Verify email' do
@@ -105,7 +114,7 @@ describe UsersController do
     describe 'page' do
       it { should have_title('Edit user') }
       it { should have_content('Update your profile') }
-      it { should have_link('change', href: 'http://gravatar.com/emails') }
+      it { should have_link('change', href: 'https://gravatar.com/emails') }
       it { should have_selector("input[type='email'][disabled='disabled']") }
       it { should_not have_selector("input[type='email'][placeholder='Enter email']") }
     end

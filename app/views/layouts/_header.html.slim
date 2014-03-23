@@ -23,9 +23,6 @@ div[class="navbar navbar-inverse navbar-fixed-top"
           input[type="text"
                 class="form-control"
                 placeholder="Name/Account/Post"]
-        button[type="submit"
-               class="btn btn-default"]
-          | Search
       ul.nav.navbar-nav.navbar-right
         li
           = link_to "Home", root_path
@@ -42,7 +39,7 @@ div[class="navbar navbar-inverse navbar-fixed-top"
               span
                 = gravatar_for(current_user,
                                size: 30,
-                               class: 'header-avatar')
+                               class: "header-avatar")
                 | &nbsp
                 = current_user.name
                 b.caret

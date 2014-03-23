@@ -4,6 +4,7 @@ ME2::Application.routes.draw do
   resources :sessions, only: [:create]
   resources :verify_email, only: [:new, :create, :edit, :show]
   resources :password_reset, only: [:new, :create, :edit, :update]
+  resources :microposts, only: [:create, :destroy]
 
   get     '/help'                       => 'static_pages#help'
   get     '/about'                      => 'static_pages#about'

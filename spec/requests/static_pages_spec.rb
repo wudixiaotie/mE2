@@ -7,7 +7,9 @@ describe StaticPagesController do
   # shared examples
   shared_examples_for 'all static pages' do
     it { should have_selector('h1', text: h1) }
-    it { should have_title(full_title(page_title)) }
+    it 'should redirect to root' do
+      expect(page.title).to eq(full_title(page_title))
+    end
   end
 
   describe 'Home page' do
@@ -17,6 +19,52 @@ describe StaticPagesController do
     let(:h1) { 'Welcome to the mE2' }
     let(:page_title) { '' }
     it { should_not have_title('| Home') }
+
+    describe "for sign in user" do
+      let(:user) { FactoryGirl.create(:user) }
+      before do
+        FactoryGirl.create(:micropost, user: user, content: "ffff")
+        FactoryGirl.create(:micropost, user: user, content: "fddd")
+        sign_in user
+        visit root_path
+      end
+
+      it "should render the user's feed" do
+        user.feed.each do |item|
+          expect(page).to have_selector("li", text: item.content)
+        end
+      end
+
+      describe "should have correct micropost count" do
+        it { should have_selector("span", text: "2 microposts") }
+        it "count should be one after delete one micropost" do
+          user.microposts.first.destroy
+          visit root_path
+          expect(page).to have_selector("span", text: "1 micropost")
+          expect { click_link "delete" }.to change(Micropost, :count).by(-1)
+        end
+      end
+
+      it { should_not have_selector("ul.pagination") }
+
+      describe "should have correct pagination" do
+        before do
+          10.times do
+            content = Faker::Lorem.sentence(5)
+            FactoryGirl.create(:micropost, user: user, content: content)
+          end
+          visit root_path
+        end
+
+        it { should have_selector("ul.pagination") }
+        it { should have_selector("ul.pagination a", text: 1) }
+        it { should have_selector("ul.pagination a", text: 2) }
+        it { should have_selector("ul.pagination a", text: 3) }
+        it { should_not have_selector("ul.pagination a", text: 4) }
+      end
+
+      it { should have_selector("a", text: "delete") }
+    end
   end
 
   describe 'Help page' do

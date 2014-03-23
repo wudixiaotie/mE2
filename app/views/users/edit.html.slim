@@ -1,21 +1,21 @@
-- provide :title, 'Edit user'
+- provide :title, "Edit user"
 h1.text-center
   | Update your profile
 div.row
   div.col-sm-offset-3.col-sm-6
     = form_for(@user,
                html: { class: "form-horizontal",
-                       role: 'form' }) do |f|
+                       role: "form" }) do |f|
 
-      = render 'fields', form: f
+      = render "fields", form: f
 
       div.form-group
         div.col-sm-offset-3.col-sm-9
-          = f.submit('Save change',
-                     class: 'btn btn-lg btn-primary')
+          = f.submit("Save change",
+                     class: "btn btn-lg btn-primary")
 
       div.col-sm-offset-3.col-sm-9
         = gravatar_for @user
-        = link_to('change',
-                  'http://gravatar.com/emails',
-                  target: '_blank')
+        = link_to("change",
+                  "https://gravatar.com/emails",
+                  target: "_blank")

@@ -1,15 +1,21 @@
 @import 'bootstrap';
 
-/* mixins, variables, etc. */
+/* Common */
+
+h1, h2, h3 {
+  font-weight: bold;
+}
 
 
 /* universal */
 
 body {
-  padding-top: 60px;
+  padding-top: 70px;
 }
 
-/* typography */
+textarea {
+  resize: none;
+}
 
 /* header */
 
@@ -24,7 +30,7 @@ body {
 }
 
 .header-avatar {
-  border-radius: 50%;
+  @extend .img-circle;
   border: 3px solid #fff;
   margin-left: -15px;
   margin-top: -5px;
@@ -53,6 +59,13 @@ footer {
   @extend .has-error;
 }
 
+#error_explanation {
+  color: #f00;
+  ol {
+    margin: 0 0 18px 0;
+  }
+}
+
 /* Users index */
 
 .users-index-item {
@@ -64,6 +77,57 @@ footer {
     border-top: 1px solid $gray-lighter;
     &:last-child {
       border-bottom: 1px solid $gray-lighter;
+    }
+  }
+}
+
+/* microposts */
+
+.microposts {
+  list-style: none;
+  margin: 10px 0 0 0;
+  padding: 0px;
+
+  li {
+    padding: 10px 0;
+    border-top: 1px solid #e8e8e8;
+  }
+}
+
+.content {
+  display: block;
+}
+
+.timestamp {
+  color: $gray-light;
+}
+
+.gravatar {
+  float: left;
+  margin-right: 10px;
+}
+
+/* sidebar */
+
+aside {
+  section {
+    padding: 10px 0;
+    border-top: 1px solid $gray-lighter;
+    &:first-child {
+      border: 0;
+      padding-top: 0;
+    }
+    span {
+      display: block;
+      margin-bottom: 3px;
+      line-height: 1;
+    }
+    h1 {
+      font-size: 1.4em;
+      text-align: left;
+      letter-spacing: -1px;
+      margin-bottom: 3px;
+      margin-top: 0px;
     }
   }
 }

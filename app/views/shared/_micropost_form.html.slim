@@ -1,0 +1,14 @@
+= form_for(@micropost,
+           html: { class: "form-horizontal",
+                   role: "form" }) do |f|
+
+  = render "shared/error_messages", object: f.object
+
+  div.form-group
+    div.col-xs-12
+      = f.text_area(:content, class: "form-control", rows: 4,
+                    placeholder: "Compose new micropost...")
+
+  div.form-group
+    div.col-xs-12
+      = f.submit "Post", class: "btn btn-lg btn-success"
