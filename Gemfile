@@ -21,7 +21,6 @@ gem 'bootstrap-sass', '3.1.1.0'
 gem 'sass-rails', '4.0.1'
 gem 'uglifier', '2.1.1'
 gem 'coffee-rails', '4.0.1'
-gem 'faker', '1.3.0'
 
 # gem 'country_select', 
 # gem 'client_side_validations', '3.2.6'
@@ -33,6 +32,7 @@ group :development, :test do
   gem 'spork-rails', '4.0.0'
   gem 'guard-spork', '1.5.0'
   gem 'childprocess', '0.3.6'
+  gem 'faker', '1.3.0'
 end
 
 group :test do
