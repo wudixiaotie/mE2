@@ -64,6 +64,12 @@ describe StaticPagesController do
       end
 
       it { should have_selector("a", text: "delete") }
+
+      describe "should not have delete link for other user's micropost" do
+        let(:another_user) { FactoryGirl.create(:user) }
+        # before 
+        pending "hack"
+      end
     end
   end
 

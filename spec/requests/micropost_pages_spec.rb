@@ -27,5 +27,14 @@ describe "Micropost pages" do
         expect { click_button "Post" }.to change(Micropost, :count).by(1)
       end
     end
+
+    describe "140 characters remaining" do
+      it { should have_selector("span.remaining", text: "140 characters remaining") }
+    end
+
+    # describe "1 characters remaining" do
+    #   before { fill_in "micropost_content", with: "a" * 139 }
+    #   it { should have_selector("span.remaining", text: "1 character remaining") }
+    # end
   end
 end

@@ -1,5 +1,5 @@
 span.content
-  = micropost.content
+  = wrap(micropost.content)
 span.timestamp
   ' Post
   = time_ago_in_words(micropost.created_at)

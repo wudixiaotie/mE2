@@ -1,22 +1,4 @@
 - if signed_in?
-  div.row
-    aside.col-sm-4
-      section
-        = render "shared/user_info"
-      section
-        = render "shared/micropost_form"
-    div.col-sm-8
-      h3
-        | Micropost Feed
-      = render "shared/feed"
+  = render "shared/user_home"
 - else
-  div.jumbotron
-    h1
-      | Welcome to the mE2
-    p
-      | This is the home page for this application.
-    p
-      | Its a simple Microbolg.
-    = link_to("Sign up now!",
-              signup_path,
-              class: "btn btn-primary btn-lg")
+  = render "shared/guest_home"
