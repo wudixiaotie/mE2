@@ -35,6 +35,7 @@ describe "Micropost pages" do
     # describe "1 characters remaining" do
     #   before { fill_in "micropost_content", with: "a" }
     #   it { should have_selector("span.remaining", text: "139 character remaining") }
+    #   it { pp find("span.remaining").text }
     # end
   end
 end
