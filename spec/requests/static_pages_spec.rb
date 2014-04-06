@@ -35,12 +35,23 @@ describe StaticPagesController do
         end
       end
 
+      describe "follower/following counts" do
+        let(:other_user) { FactoryGirl.create(:user) }
+        before do
+          other_user.follow!(user)
+          visit root_path
+        end
+
+        it { should have_link("0 following", href: following_user_path(user)) }
+        it { should have_link("1 followers", href: followers_user_path(user)) }
+      end
+
       describe "should have correct micropost count" do
-        it { should have_selector("span", text: "2 microposts") }
+        it { should have_selector("li", text: "2 microposts") }
         it "count should be one after delete one micropost" do
           user.microposts.first.destroy
           visit root_path
-          expect(page).to have_selector("span", text: "1 micropost")
+          expect(page).to have_selector("li", text: "1 micropost")
           expect { click_link "delete" }.to change(Micropost, :count).by(-1)
         end
       end
@@ -67,8 +78,14 @@ describe StaticPagesController do
 
       describe "should not have delete link for other user's micropost" do
         let(:another_user) { FactoryGirl.create(:user) }
-        # before 
-        pending "hack"
+        before do
+          user.follow!(another_user)
+          another_user.microposts.create!(content: "followed_user micropost")
+          visit root_path
+        end
+
+        it { should have_selector("span.content", text: "followed_user micropost") }
+        it { should_not have_xpath("//a[@title='followed_user micropost']") }
       end
     end
   end

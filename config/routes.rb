@@ -1,17 +1,22 @@
 ME2::Application.routes.draw do
   root 'static_pages#home'
-  resources :users, except: [:new]
-  resources :sessions, only: [:create]
-  resources :verify_email, only: [:new, :create, :edit, :show]
+  resources :users, except: [:new] do
+    member do
+      get :following, :followers
+    end
+  end
+  resources :sessions,       only: [:create]
+  resources :verify_email,   only: [:new, :create, :edit, :show]
   resources :password_reset, only: [:new, :create, :edit, :update]
-  resources :microposts, only: [:create, :destroy]
+  resources :microposts,     only: [:create, :destroy]
+  resources :relationships,  only: [:create, :destroy]
 
-  get     '/help'                       => 'static_pages#help'
-  get     '/about'                      => 'static_pages#about'
-  get     '/contact'                    => 'static_pages#contact'
-  get     '/signup'                     => 'users#new'
-  get     '/signin'                     => 'sessions#new'
-  delete  '/signout'                    => 'sessions#destroy'
+  get     '/help'     => 'static_pages#help'
+  get     '/about'    => 'static_pages#about'
+  get     '/contact'  => 'static_pages#contact'
+  get     '/signup'   => 'users#new'
+  get     '/signin'   => 'sessions#new'
+  delete  '/signout'  => 'sessions#destroy'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

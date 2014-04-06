@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :signed_in_user, only: [:index, :edit, :update ]
+  before_action :signed_in_user,
+                only: [:index, :edit, :update, :destroy, :following, :followers]
   before_action :correct_user, only: [:edit, :update]
   before_action :signed_up_user, only: [:new, :create]
   before_action :admin_user, only: [:destroy]
@@ -17,7 +18,7 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to edit_verify_email_path(@user)
     else
-      render 'new'
+      render "new"
     end
   end
 
@@ -32,15 +33,29 @@ class UsersController < ApplicationController
   def update
     if @user.update(user_params)
       sign_out
-      redirect_to signin_path, flash: { success: 'Profile updated' }
+      redirect_to signin_path, flash: { success: "Profile updated" }
     else
-      render 'edit'
+      render "edit"
     end
   end
 
   def destroy
     @user.destroy
-    redirect_to users_path, flash: { success: 'User destroyed.' }
+    redirect_to users_path, flash: { success: "User destroyed." }
+  end
+
+  def following
+    @title = "Following"
+    @user = User.find(params[:id])
+    @users = @user.followed_users.page(params[:page])
+    render "show_follow"
+  end
+
+  def followers
+    @title = "Followers"
+    @user = User.find(params[:id])
+    @users = @user.followers.page(params[:page])
+    render "show_follow"
   end
 
   private

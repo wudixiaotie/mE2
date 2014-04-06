@@ -1,5 +1,5 @@
 - if @feed_items.any?
-  ol.microposts
+  ol.media-list
     = render partial: "shared/feed_item", collection: @feed_items
 
   = paginate @feed_items

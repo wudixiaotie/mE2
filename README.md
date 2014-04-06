@@ -16,3 +16,4 @@ URL: http://me-2.herokuapp.com
 11.search auto-complite
 12.change routes when at home click post
 13.bootstrap feedback
+14.relationship's ajax how to deal with it?
