@@ -20,7 +20,6 @@ gem 'bootstrap-sass', '3.1.1.0'
 gem 'sass-rails', '4.0.2'
 gem 'uglifier', '2.1.1'
 gem 'coffee-rails', '4.0.1'
-gem 'font_assets', '0.1.11'
 
 # gem 'country_select'
 
