@@ -15,7 +15,7 @@ namespace :db do
                  admin: true)
 
     99.times do |n|
-      name  = Faker::Name.name
+      name  = Faker::Name.name.gsub /\W/, "_"
       email = "example-#{n+1}@railstutorial.org"
       password  = "password"
       User.create!(name: name,

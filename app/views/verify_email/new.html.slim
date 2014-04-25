@@ -10,4 +10,6 @@
   p
     | You havn"t verify your email account. Please click this button to resend a verify email.
   p
-    = submit_tag "Resend email", class: "btn btn-info btn-lg"
+    = submit_tag("Resend email",
+                 class: "btn btn-info btn-lg",
+                 data: { disable_with: "Please wait..." })

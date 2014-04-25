@@ -6,14 +6,14 @@ div.row
     section
       = render "shared/stats"
       - if @users.any?
-        div.user_avatars
+        div.user-avatars
           - @users.each do |user|
-            = link_to(gravatar_for(user, size: 30), user)
+            = link_to(gravatar_for(user, size: 30, class: "mini-avatar"), user)
   div.col-sm-8
     h3
       = @title
     - if @users.any?
-      ul.users-index-item
+      ul.media-list
         = render @users
 
       = paginate @users

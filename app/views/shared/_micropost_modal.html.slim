@@ -1,0 +1,18 @@
+div[class="modal fade"
+    id="micropost_modal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="myModalLabel"
+    aria-hidden="true"]
+  div.modal-dialog
+    div.modal-content
+      div.modal-header
+        button[type="button"
+               class="close"
+               data-dismiss="modal"
+               aria-hidden="true"]
+          | &times;
+        h4.modal-title
+          | Post micropost
+      div.modal-body
+        = render "shared/micropost_form"

@@ -1,9 +1,11 @@
-li
-  = gravatar_for user
-  = link_to user.name, user
-  - if current_user.admin? && !current_user?(user)
-    '  |
-    = link_to('delete',
-              user,
-              method: :delete,
-              data: { confirm: 'Are you sure?' })
+li.media
+  = gravatar_for user, class: "pull-left"
+  div.media-body
+    h5.media-heading
+      = link_to user.name, user
+      - if current_user.admin? && !current_user?(user)
+        '  |
+        = link_to('delete',
+                  user,
+                  method: :delete,
+                  data: { confirm: 'Are you sure?' })

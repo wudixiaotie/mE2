@@ -13,4 +13,6 @@
 
   div.form-group
     div.col-xs-12
-      = f.submit "Post", class: "btn btn-lg btn-success"
+      = f.submit("Post",
+                 class: "btn btn-lg btn-success",
+                 data: { disable_with: "Please wait..." })

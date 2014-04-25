@@ -12356,7 +12356,7 @@ if ( typeof define === "function" && define.amd && define.amd.jQuery ) {
 
 }).call(this);
 $(function() {
-  $("textarea.content").on("keyup", function() {
+  $("#micropost_content").on("keydown", function() {
     var remaining = 140 - $(this).val().length;
     var text;
 
@@ -12378,9 +12378,35 @@ $(function() {
     }
 
     $(this).siblings(".remaining").text(text);
-  })
-})
-;
+  });
+
+  $(".media").on({
+    mouseenter: function(){ $(this).find("a.hover-visiable").show(); },
+    mouseleave: function(){ $(this).find("a.hover-visiable").hide(); }
+  });
+
+  $(".reply-button").on("click", function(){
+    $("#micropost_content")
+    .focus()
+    .val("@" + $(this).data("name") + ": ")
+    .trigger("keydown");
+  });
+
+  $(".show-micropost-modal").hide();
+  if($("#new_micropost").length > 0){
+    $(window).on("scroll", function(){
+      var micropost_form = $("#new_micropost");
+      var bottom_y = micropost_form.offset().top + micropost_form.height();
+
+      if($(window).scrollTop() > bottom_y) {
+        $(".show-micropost-modal").show();
+      }
+      else{
+        $(".show-micropost-modal").hide();
+      }
+    });
+  }
+});
 // This is a manifest file that'll be compiled into application.js, which will include all the files
 // listed below.
 //

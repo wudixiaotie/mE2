@@ -87,6 +87,67 @@ describe StaticPagesController do
         it { should have_selector("span.content", text: "followed_user micropost") }
         it { should_not have_xpath("//a[@title='followed_user micropost']") }
       end
+
+      it { should have_selector("a", text: "Reply") }
+
+      describe "should have the micropost which you reply to" do
+        let(:reply_to_user) { FactoryGirl.create(:user) }
+        before do
+          fill_in "micropost_content", with: "@#{reply_to_user.name}:asdf!"
+          click_button "Post"
+        end
+        it { should have_link("@#{reply_to_user.name}:") }
+        it { should have_content("asdf!") }
+
+        describe "click the link should visit reply to user's profile page" do
+          before { click_link("@#{reply_to_user.name}:") }
+          it { should have_title(full_title(reply_to_user.name)) }
+        end
+
+        describe "should find micropost in follower's feed page" do
+          let(:follower) { FactoryGirl.create(:user) }
+          before do
+            follower.follow!(user)
+            sign_in follower
+            visit root_path
+          end
+
+          it { should have_link("@#{reply_to_user.name}:") }
+          it { should have_content("asdf!") }
+        end
+
+        describe "should not find micropost in other's feed page" do
+          let(:other_user) { FactoryGirl.create(:user) }
+          before do
+            sign_in other_user
+            visit root_path
+          end
+
+          it { should_not have_link("@#{reply_to_user.name}:") }
+          it { should_not have_content("asdf!") }
+        end
+      end
+
+      describe "should have the micropost which somebody replies you" do
+        let(:replies_user) { FactoryGirl.create(:user) }
+        before do
+          sign_in replies_user
+          visit root_path
+          fill_in "micropost_content", with: "@#{user.name}:i like you opinion!"
+          click_button "Post"
+          sign_in user
+          visit root_path
+        end
+
+        it { should have_link("@#{user.name}:") }
+        it { should have_link("#{replies_user.name}") }
+        it { should have_content("i like you opinion!") }
+
+        describe "click the link should visit replies user's profile page" do
+          before { click_link("@#{user.name}:") }
+          it { should have_title(full_title(user.name)) }
+        end
+      end
     end
   end
 
@@ -123,9 +184,9 @@ describe StaticPagesController do
 
     click_link 'mE2'
     should have_title(full_title(''))
-    click_link 'Home'
+    click_link "", href: root_path
     should have_title(full_title(''))
-    click_link 'Help'
+    click_link "", href: help_path
     should have_title(full_title('Help'))
     click_link 'Sign in'
     should have_title(full_title('Sign in'))

@@ -10,5 +10,6 @@ div.row
 
       div.form-group
         div.col-sm-offset-3.col-sm-9
-          = f.submit "Create my account",
-                     class: "btn btn-lg btn-primary"
+          = f.submit("Create my account",
+                     class: "btn btn-lg btn-primary",
+                     data: { disable_with: "Please wait..." })

@@ -7645,7 +7645,7 @@ textarea {
 
 /* line 32, /home/xiaotie/Documents/code/mE2/app/assets/stylesheets/custom.css.scss */
 .header-avatar {
-  border: 3px solid #fff;
+  border: 2px solid #fff;
   margin-left: -15px;
   margin-top: -5px;
   width: 30px;
@@ -7680,46 +7680,34 @@ footer ul {
   margin: 0 0 18px 0;
 }
 
-/* Users index */
-/* line 71, /home/xiaotie/Documents/code/mE2/app/assets/stylesheets/custom.css.scss */
-.users-index-item {
-  list-style: none;
-  margin: 0;
-}
-/* line 74, /home/xiaotie/Documents/code/mE2/app/assets/stylesheets/custom.css.scss */
-.users-index-item li {
-  overflow: auto;
-  padding: 10px 0;
-  border-top: 1px solid #eeeeee;
-}
-/* line 78, /home/xiaotie/Documents/code/mE2/app/assets/stylesheets/custom.css.scss */
-.users-index-item li:last-child {
-  border-bottom: 1px solid #eeeeee;
-}
-
 /* microposts */
-/* line 86, /home/xiaotie/Documents/code/mE2/app/assets/stylesheets/custom.css.scss */
+/* line 71, /home/xiaotie/Documents/code/mE2/app/assets/stylesheets/custom.css.scss */
 .content {
   display: block;
 }
 
-/* line 90, /home/xiaotie/Documents/code/mE2/app/assets/stylesheets/custom.css.scss */
+/* line 75, /home/xiaotie/Documents/code/mE2/app/assets/stylesheets/custom.css.scss */
 .timestamp {
   color: #999999;
 }
 
+/* line 79, /home/xiaotie/Documents/code/mE2/app/assets/stylesheets/custom.css.scss */
+.hover-visiable {
+  display: none;
+}
+
 /* sidebar */
-/* line 97, /home/xiaotie/Documents/code/mE2/app/assets/stylesheets/custom.css.scss */
+/* line 86, /home/xiaotie/Documents/code/mE2/app/assets/stylesheets/custom.css.scss */
 aside section {
   padding: 10px 0;
   border-top: 1px solid #eeeeee;
 }
-/* line 100, /home/xiaotie/Documents/code/mE2/app/assets/stylesheets/custom.css.scss */
+/* line 89, /home/xiaotie/Documents/code/mE2/app/assets/stylesheets/custom.css.scss */
 aside section:first-child {
   border: 0;
   padding-top: 0;
 }
-/* line 104, /home/xiaotie/Documents/code/mE2/app/assets/stylesheets/custom.css.scss */
+/* line 93, /home/xiaotie/Documents/code/mE2/app/assets/stylesheets/custom.css.scss */
 aside section h1 {
   font-size: 1.4em;
   text-align: left;
@@ -7728,38 +7716,38 @@ aside section h1 {
   margin-top: 0px;
 }
 
-/* line 114, /home/xiaotie/Documents/code/mE2/app/assets/stylesheets/custom.css.scss */
+/* line 103, /home/xiaotie/Documents/code/mE2/app/assets/stylesheets/custom.css.scss */
 .stats {
   overflow: auto;
 }
-/* line 116, /home/xiaotie/Documents/code/mE2/app/assets/stylesheets/custom.css.scss */
+/* line 105, /home/xiaotie/Documents/code/mE2/app/assets/stylesheets/custom.css.scss */
 .stats a {
   float: left;
   padding: 0 10px;
   border-left: 1px solid #eeeeee;
   color: #555555;
 }
-/* line 121, /home/xiaotie/Documents/code/mE2/app/assets/stylesheets/custom.css.scss */
+/* line 110, /home/xiaotie/Documents/code/mE2/app/assets/stylesheets/custom.css.scss */
 .stats a:first-child {
   padding-left: 0;
   border: 0;
 }
-/* line 125, /home/xiaotie/Documents/code/mE2/app/assets/stylesheets/custom.css.scss */
+/* line 114, /home/xiaotie/Documents/code/mE2/app/assets/stylesheets/custom.css.scss */
 .stats a:hover {
   text-decoration: none;
   color: #428bca;
 }
-/* line 130, /home/xiaotie/Documents/code/mE2/app/assets/stylesheets/custom.css.scss */
+/* line 119, /home/xiaotie/Documents/code/mE2/app/assets/stylesheets/custom.css.scss */
 .stats strong {
   display: block;
 }
 
-/* line 135, /home/xiaotie/Documents/code/mE2/app/assets/stylesheets/custom.css.scss */
-.user_avatars {
+/* line 124, /home/xiaotie/Documents/code/mE2/app/assets/stylesheets/custom.css.scss */
+.user-avatars {
   overflow: auto;
   margin-top: 10px;
 }
-/* line 138, /home/xiaotie/Documents/code/mE2/app/assets/stylesheets/custom.css.scss */
-.user_avatars .gravatar {
+/* line 127, /home/xiaotie/Documents/code/mE2/app/assets/stylesheets/custom.css.scss */
+.user-avatars .mini-avatar {
   margin: 1px 1px;
 }

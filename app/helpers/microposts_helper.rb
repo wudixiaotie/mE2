@@ -1,6 +1,16 @@
 module MicropostsHelper
-  def wrap(content)
-    sanitize(raw(content.split.map{ |s| wrap_long_string(s) }.join(" ")))
+  def wrap(micropost)
+    micropost.content = micropost.content.split.map do |s|
+                          wrap_long_string(s)
+                        end.join(" ")
+
+    if micropost.in_reply_to
+      in_reply_to_name = "@#{micropost.in_reply_to_user.name}:"
+      micropost.content.sub!(in_reply_to_name,
+                             link_to(in_reply_to_name,
+                                     micropost.in_reply_to_user))
+    end
+    sanitize(raw(micropost.content))
   end
 
   private

@@ -2,4 +2,6 @@
            remote: true) do |f|
   div
     = f.hidden_field :followed_id
-    = f.submit "Follow", class: "btn btn-lg btn-primary"
+    = f.submit("Follow",
+               class: "btn btn-lg btn-primary",
+               data: { disable_with: "Please wait..." })

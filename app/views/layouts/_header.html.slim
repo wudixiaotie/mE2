@@ -25,35 +25,44 @@ div[class="navbar navbar-inverse navbar-fixed-top"
                 placeholder="Name/Account/Post"]
       ul.nav.navbar-nav.navbar-right
         li
-          = link_to "Home", root_path
+          = link_to "", root_path, class: "glyphicon glyphicon-home btn-lg"
         li
-          = link_to "Help", help_path
-        - if signed_in?
-          li
-            = link_to "Users", users_path
-          li.dropdown
-            a[href="#"
-              class="dropdown-toggle"
-              data-toggle="dropdown"]
-              /! avatar
-              span
-                = gravatar_for(current_user,
-                               size: 30,
-                               class: "header-avatar")
-                '
-                = current_user.name
-                b.caret
-            ul.dropdown-menu
-              li
-                = link_to "Profile", current_user
-              li
-                = link_to("Settings",
-                          edit_user_path(current_user))
-              li.divider
-              li
-                = link_to("Sign out",
-                          signout_path,
-                          method: "delete")
-        - else
-          li
-            = link_to "Sign in", signin_path
+          = link_to "", help_path, class: "glyphicon glyphicon-question-sign btn-lg"
+        li
+          = link_to help_path do
+            = content_tag :span, 42, class: "badge alert-info pull-right"
+            = content_tag :span, "", class: "glyphicon glyphicon-envelope btn-lg"
+          - if signed_in?
+            li
+              = link_to("", followers_user_path(current_user),
+                        class: "glyphicon glyphicon-user btn-lg")
+            li.show-micropost-modal
+              = link_to("", "#",
+                        class: "glyphicon glyphicon-pencil btn-lg alert-success",
+                        data: { toggle: "modal", target: "#micropost_modal"})
+            li.dropdown
+              a[href="#"
+                class="dropdown-toggle"
+                data-toggle="dropdown"]
+                /! avatar
+                span
+                  = gravatar_for(current_user,
+                                 size: 30,
+                                 class: "header-avatar")
+                  '
+                  = current_user.name
+                  b.caret
+              ul.dropdown-menu
+                li
+                  = link_to "Profile", current_user
+                li
+                  = link_to("Settings",
+                            edit_user_path(current_user))
+                li.divider
+                li
+                  = link_to("Sign out",
+                            signout_path,
+                            method: "delete")
+          - else
+            li
+              = link_to "Sign in", signin_path

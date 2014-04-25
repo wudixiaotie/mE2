@@ -7,6 +7,8 @@ class Micropost < ActiveRecord::Base
   # Associations
 
   belongs_to :user
+  belongs_to :in_reply_to_user, class_name: "User",
+                                foreign_key: "in_reply_to"
 
   # Validates
 
@@ -20,10 +22,12 @@ class Micropost < ActiveRecord::Base
 
   # micropost from users followed by
 
-  def self.from_users_followed_by(user)
+  def self.from_users_followed_by(user_id)
     followed_user_ids = "SELECT followed_id FROM relationships
                          WHERE follower_id = :user_id"
-    where("user_id IN (#{followed_user_ids}) OR user_id = :user_id",
-          user_id: user.id)
+    where("user_id IN (#{followed_user_ids})
+           OR user_id = :user_id
+           OR in_reply_to = :user_id",
+          user_id: user_id)
   end
 end

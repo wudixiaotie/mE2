@@ -23,7 +23,11 @@ class User < ActiveRecord::Base
 
   # Validates
 
-  validates :name,  presence: true, length: { maximum: 50 }
+  VALID_NAME_REGEX = /\A\w+\z/i
+  validates :name,  presence: true,
+                    length: { maximum: 50 },
+                    format: { with: VALID_NAME_REGEX },
+                    uniqueness: { case_sensitive: false }
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
   validates :email, presence: true,
@@ -67,7 +71,7 @@ class User < ActiveRecord::Base
   # feed
   
   def feed
-    Micropost.from_users_followed_by(self)
+    Micropost.from_users_followed_by(self.id)
   end
 
   # follow

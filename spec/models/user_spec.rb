@@ -3,7 +3,7 @@ require 'spec_helper'
 describe User do
 
   before do
-    @user =  User.new(name:                  'Example User',
+    @user =  User.new(name:                  'Example_User',
                       email:                 'user@example.com',
                       password:              'foobar',
                       password_confirmation: 'foobar',
@@ -33,12 +33,10 @@ describe User do
   it { should_not be_verified }
   it { should_not be_admin }
 
+  # name
+
   describe 'when name is not present' do
     before { @user.name = ' ' }
-    it { should_not be_valid }
-  end
-  describe 'when email is not present' do
-    before { @user.email = ' ' }
     it { should_not be_valid }
   end
 
@@ -46,6 +44,25 @@ describe User do
     before { @user.name = 'a' * 51 }
     it { should_not be_valid }
   end
+
+  describe 'when name should be unique' do
+    let(:exist_user) { FactoryGirl.create(:user) }
+    before { @user.name = exist_user.name }
+    it { should_not be_valid }
+  end
+
+  describe 'when name should not be start with special charactor' do
+    before { @user.name = "@fff" }
+    it { should_not be_valid }
+  end
+
+  # email
+
+  describe 'when email is not present' do
+    before { @user.email = ' ' }
+    it { should_not be_valid }
+  end
+
   describe 'when email is too long' do
     before { @user.email = 'a' * 101 }
     it { should_not be_valid }
@@ -61,6 +78,7 @@ describe User do
       end
     end
   end
+
   describe 'when email format is valid' do
     it 'should be valid' do
       addresses = %w[user@foo.COM A_US-ER@f.b.org frst.lst@foo.jp
@@ -91,6 +109,8 @@ describe User do
       expect(@user.reload.email).to eq upcase_email.downcase
     end
   end
+
+  # password
 
   describe 'with a password that\'s too short' do
     before { @user.password = @user.password_confirmation = 'a' * 5 }
