@@ -9,7 +9,6 @@ gem 'bcrypt-ruby', '3.1.2'
 
 # views
 gem 'slim-rails', '2.1.2'
-# gem 'draper', '1.3.0'
 
 # paginate
 gem 'kaminari', '0.15.1'
@@ -21,9 +20,9 @@ gem 'bootstrap-sass', '3.1.1.0'
 gem 'sass-rails', '4.0.2'
 gem 'uglifier', '2.1.1'
 gem 'coffee-rails', '4.0.1'
+gem 'font_assets', '0.1.11'
 
-# gem 'country_select', 
-# gem 'client_side_validations', '3.2.6'
+# gem 'country_select'
 
 group :development, :test do
   gem 'sqlite3', '1.3.8'
