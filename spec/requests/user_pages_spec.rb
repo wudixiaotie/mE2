@@ -33,7 +33,7 @@ describe UsersController do
 
     describe 'when input valid info' do
       before do
-        fill_in 'Name',         with: 'Example User'
+        fill_in 'Name',         with: 'Example_User'
         fill_in 'Email',        with: 'user@example.com'
         fill_in 'Password',     with: 'foobar'
         fill_in 'Confirmation', with: 'foobar'
@@ -46,7 +46,7 @@ describe UsersController do
       describe 'after saving the user' do
         before { click_button submit }
         let(:user) { User.find_by(email: 'user@example.com') }
-
+        
         it { should have_title(full_title('')) }
         it { expect(user.verified).to be_false }
         it { should have_content('Account created successfully!') }
@@ -177,7 +177,7 @@ describe UsersController do
     end
 
     describe 'with valid information' do
-      let(:new_name) { 'New Name' }
+      let(:new_name) { 'New_Name' }
       let(:old_email) { user.email }
       before do
         fill_in 'Name',         with: new_name

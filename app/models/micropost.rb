@@ -18,7 +18,7 @@ class Micropost < ActiveRecord::Base
 
   # paginates_per for kaminari
 
-  paginates_per 5
+  paginates_per 20
 
   # micropost from users followed by
 

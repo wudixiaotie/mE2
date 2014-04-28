@@ -12,19 +12,25 @@ describe "Micropost pages" do
     describe "with invalid information" do
 
       it "should not create a micropost" do
-        expect { click_button "Post" }.not_to change(Micropost, :count)
+        expect do
+          find(:css, "section input.btn.btn-lg.btn-success").click
+        end.not_to change(Micropost, :count)
       end
 
       describe "error messages" do
-        before { click_button "Post" }
+        before { find(:css, "section input.btn.btn-lg.btn-success").click }
         it { should have_content("error") }
       end
     end
 
     describe "with valid information" do
-      before { fill_in "micropost_content", with: "asdf" }
+      before do
+        find(:css, "section textarea").set("asdf")
+      end
       it "should create a micropost" do
-        expect { click_button "Post" }.to change(Micropost, :count).by(1)
+        expect do
+          find(:css, "section input.btn.btn-lg.btn-success").click
+        end.to change(Micropost, :count).by(1)
       end
     end
 

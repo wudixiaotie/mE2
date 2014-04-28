@@ -60,7 +60,7 @@ describe StaticPagesController do
 
       describe "should have correct pagination" do
         before do
-          10.times do
+          55.times do
             content = Faker::Lorem.sentence(5)
             FactoryGirl.create(:micropost, user: user, content: content)
           end
@@ -93,8 +93,8 @@ describe StaticPagesController do
       describe "should have the micropost which you reply to" do
         let(:reply_to_user) { FactoryGirl.create(:user) }
         before do
-          fill_in "micropost_content", with: "@#{reply_to_user.name}:asdf!"
-          click_button "Post"
+          find(:css, "section textarea").set("@#{reply_to_user.name}:asdf!")
+          find(:css, "section input.btn.btn-lg.btn-success").click
         end
         it { should have_link("@#{reply_to_user.name}:") }
         it { should have_content("asdf!") }
@@ -133,8 +133,8 @@ describe StaticPagesController do
         before do
           sign_in replies_user
           visit root_path
-          fill_in "micropost_content", with: "@#{user.name}:i like you opinion!"
-          click_button "Post"
+          find(:css, "div.modal-body textarea").set("@#{user.name}:i like you opinion!")
+          find(:css, "div.modal-body input.btn.btn-lg.btn-success").click
           sign_in user
           visit root_path
         end
