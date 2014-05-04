@@ -4,6 +4,7 @@ namespace :db do
     make_users
     make_microposts
     make_relationships
+    make_messages
   end
 
   def make_users
@@ -23,6 +24,9 @@ namespace :db do
                    password: password,
                    password_confirmation: password)
     end
+
+    User.find(2).update_attribute(:verified, true)
+    User.find(3).update_attribute(:verified, true)
   end
 
   def make_microposts
@@ -40,5 +44,19 @@ namespace :db do
     followers      = users[3..40]
     followed_users.each { |followed| user.follow!(followed) }
     followers.each      { |follower| follower.follow!(user) }
+  end
+
+  def make_messages
+    receiver = User.find(1)
+    sender1 = User.find(2)
+    sender2 = User.find(3)
+    10.times do
+      content = Faker::Lorem.sentence(5)
+      sender1.messages_sended.create!(content: content, receiver_id: receiver.id)
+    end
+    3.times do
+      content = Faker::Lorem.sentence(5)
+      sender2.messages_sended.create!(content: content, receiver_id: receiver.id)
+    end
   end
 end

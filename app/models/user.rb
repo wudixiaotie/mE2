@@ -20,6 +20,11 @@ class User < ActiveRecord::Base
                                    class_name: "Relationship",
                                    dependent: :destroy
   has_many :followers, through: :reverse_relationships
+  has_many :messages_sended, foreign_key: "sender_id",
+                             class_name: "Message",
+                             dependent: :destroy
+  has_many :messages_received, foreign_key: "receiver_id",
+                               class_name: "Message"
 
   # Validates
 

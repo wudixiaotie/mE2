@@ -10,6 +10,7 @@ ME2::Application.routes.draw do
   resources :password_reset, only: [:new, :create, :edit, :update]
   resources :microposts,     only: [:create, :destroy]
   resources :relationships,  only: [:create, :destroy]
+  resources :messages,       only: [:index, :show, :create, :destroy]
 
   get     '/help'     => 'static_pages#help'
   get     '/about'    => 'static_pages#about'

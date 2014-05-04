@@ -1,0 +1,8 @@
+li.media
+  = gravatar_for message.sender, class: "pull-left"
+  div.media-body
+    h4.media-heading
+      = link_to message.sender.name, message.sender
+    = message.content
+    '  |
+    = link_to("message(#{@messages_count[message.sender_id]})", message)

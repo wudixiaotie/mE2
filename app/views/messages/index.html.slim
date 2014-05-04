@@ -1,0 +1,10 @@
+- provide :title, "Messages"
+= content_tag(:button, "Send Message", type: "button",
+                                       class: "btn btn-lg btn-info")
+
+= paginate @messages
+
+ul.media-list
+  = render @messages
+
+= paginate @messages
