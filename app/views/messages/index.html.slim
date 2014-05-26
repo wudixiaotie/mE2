@@ -1,10 +1,48 @@
 - provide :title, "Messages"
 = content_tag(:button, "Send Message", type: "button",
-                                       class: "btn btn-lg btn-info")
+                                       class: "btn btn-lg btn-info",
+              data: { toggle: "modal", target: "#message_modal"})
 
 = paginate @messages
 
 ul.media-list
-  = render @messages
+  = render partial: "index_message", collection: @messages
 
 = paginate @messages
+
+div[class="modal fade"
+    id="message_modal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="myModalLabel"
+    aria-hidden="true"]
+  div.modal-dialog
+    div.modal-content
+      = form_for(@message,
+                 html: { class: "form-horizontal",
+                         role: "form" }) do |f|
+        div.modal-header
+          button[type="button"
+                 class="close"
+                 data-dismiss="modal"
+                 aria-hidden="true"]
+            | &times;
+          h4.modal-title
+            | Send message
+            = f.text_field :receiver_name, class: "form-control",
+                                         placeholder: "Name"
+        div.modal-body
+          = render "shared/error_messages", object: f.object
+
+          div.form-group
+            div.col-xs-12
+              = f.text_area(:content, class: "form-control content", rows: 4,
+                            placeholder: "Compose new message...")
+              span.remaining
+                | 140 characters remaining
+
+          div.form-group
+            div.col-xs-12
+              = f.submit("Post",
+                         class: "btn btn-lg btn-success",
+                         data: { disable_with: "Please wait..." })

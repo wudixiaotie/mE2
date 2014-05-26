@@ -11,18 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140424075908) do
+ActiveRecord::Schema.define(version: 20140522065510) do
 
   create_table "messages", force: true do |t|
     t.string   "content"
-    t.string   "sender_id"
-    t.string   "receiver_id"
+    t.string   "sender_name"
+    t.string   "receiver_name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "unread",        default: true
   end
 
-  add_index "messages", ["receiver_id"], name: "index_messages_on_receiver_id"
-  add_index "messages", ["sender_id"], name: "index_messages_on_sender_id"
+  add_index "messages", ["receiver_name"], name: "index_messages_on_receiver_name"
+  add_index "messages", ["sender_name"], name: "index_messages_on_sender_name"
 
   create_table "microposts", force: true do |t|
     t.string   "content"

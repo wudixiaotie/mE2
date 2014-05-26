@@ -52,3 +52,11 @@ REST API
 搜索
 
 现在，除了浏览用户索引页面，或者查看其他用户的动态列表之外，没有办法找到另外的用户。请实现搜索功能来弥补这个缺陷。然后再添加搜索微博的功能。RailsCasts 中的《Simple Search Form》一集可以给你一些帮助。如果你的程序部署在共享主机或专用服务器，我建议你使用 Thinking Sphinx（参考 RailsCasts 中的《Thinking Sphinx》一集）。如果你的程序部署在 Heroku 上，你应该参照《Full Text Search Options on Heroku》一文中的说明。
+
+
+
+
+ message sender_id=>sender_name
+ for sending message find user name
+
+ 1.sending message change from form submit to ajax so it can show flash

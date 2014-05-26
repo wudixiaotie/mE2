@@ -148,6 +148,21 @@ describe StaticPagesController do
           it { should have_title(full_title(user.name)) }
         end
       end
+
+      describe "should have count of unread messages" do
+        let(:sender) { FactoryGirl.create(:user) }
+        before do
+          sign_in sender
+          visit messages_path
+          find(:css, "#message_receiver_name").set("#{user.name}")
+          find(:css, "#message_content").set("lalala")
+          find(:css, "div.modal-body input.btn.btn-lg.btn-success").click
+          sign_in user
+          visit root_path
+        end
+
+        it { should have_selector('span.badge.alert-info.pull-right', text: '1') }
+      end
     end
   end
 

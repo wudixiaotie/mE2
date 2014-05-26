@@ -6,13 +6,17 @@ class Message < ActiveRecord::Base
 
   # Associations
 
-  belongs_to :sender, class_name: "User", foreign_key: "sender_id"
-  belongs_to :receiver, class_name: "User", foreign_key: "receiver_id"
+  belongs_to :sender, class_name: "User",
+                      foreign_key: "sender_name",
+                      primary_key: "name"
+  belongs_to :receiver, class_name: "User",
+                        foreign_key: "receiver_name",
+                        primary_key: "name"
 
   # Validates
 
-  validates :sender_id, presence: true
-  validates :receiver_id, presence: true
+  validates :sender_name, presence: true
+  validates :receiver_name, presence: true
   validates :content, presence: true,
                       length: { maximum: 140 }
 

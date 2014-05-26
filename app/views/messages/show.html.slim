@@ -1,0 +1,8 @@
+- provide :title, "Messages"
+
+= paginate @messages
+
+ul.media-list
+  = render partial: "show_message", collection: @messages
+
+= paginate @messages

@@ -3,12 +3,12 @@ class CreateMessages < ActiveRecord::Migration
     create_table :messages do |t|
 
       t.string :content
-      t.string :sender_id
-      t.string :receiver_id
+      t.string :sender_name
+      t.string :receiver_name
       t.timestamps
     end
 
-    add_index :messages, :sender_id
-    add_index :messages, :receiver_id
+    add_index :messages, :sender_name
+    add_index :messages, :receiver_name
   end
 end

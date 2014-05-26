@@ -20,11 +20,13 @@ class User < ActiveRecord::Base
                                    class_name: "Relationship",
                                    dependent: :destroy
   has_many :followers, through: :reverse_relationships
-  has_many :messages_sended, foreign_key: "sender_id",
+  has_many :messages_sended, foreign_key: "sender_name",
                              class_name: "Message",
+                             primary_key: "name",
                              dependent: :destroy
-  has_many :messages_received, foreign_key: "receiver_id",
-                               class_name: "Message"
+  has_many :messages_received, foreign_key: "receiver_name",
+                               class_name: "Message",
+                               primary_key: "name"
 
   # Validates
 
@@ -91,6 +93,16 @@ class User < ActiveRecord::Base
 
   def unfollow!(other_user)
     self.relationships.find_by(followed_id: other_user.id).destroy
+  end
+
+  # message
+
+  def unread_message_count
+    self.messages_received.where(unread: true).count
+  end
+
+  def unread_message
+    self.messages_received.where(unread: true)
   end
 
   private

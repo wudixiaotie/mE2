@@ -52,11 +52,11 @@ namespace :db do
     sender2 = User.find(3)
     10.times do
       content = Faker::Lorem.sentence(5)
-      sender1.messages_sended.create!(content: content, receiver_id: receiver.id)
+      sender1.messages_sended.create!(content: content, receiver_name: receiver.name)
     end
     3.times do
       content = Faker::Lorem.sentence(5)
-      sender2.messages_sended.create!(content: content, receiver_id: receiver.id)
+      sender2.messages_sended.create!(content: content, receiver_name: receiver.name)
     end
   end
 end

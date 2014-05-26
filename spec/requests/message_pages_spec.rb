@@ -22,15 +22,17 @@ describe "Message Pages" do
 
       describe "error messages" do
         before { find(:css, "div.modal-body input.btn.btn-lg.btn-success").click }
-        it { should have_content("error") }
+        it { should have_content("Message sending failed!") }
       end
     end
 
     describe "with valid information" do
-      let(:receive_user) { FactoryGirl.create(:user) }
+      let(:sender) { FactoryGirl.create(:user) }
       before do
-        find(:css, "div.modal-body input").set(receive_user.name)
-        find(:css, "div.modal-body textarea").set("asdf")
+        sign_in sender
+        visit messages_path
+        find(:css, "#message_receiver_name").set("#{user.name}")
+        find(:css, "#message_content").set("lalala")
       end
       it "should create a message" do
         expect do
@@ -50,7 +52,7 @@ describe "Message Pages" do
   describe "message delete" do
     let(:receive_user) { FactoryGirl.create(:user) }
     before do
-      user.messages_sended.create!(content: "ffff", receiver_id: receive_user.id)
+      user.messages_sended.create!(content: "ffff", receiver_name: receive_user.name)
       visit messages_path
     end
   end
