@@ -3,10 +3,17 @@ class MessagesController < ApplicationController
   before_action :correct_user, only: [:destroy]
 
   def index
-    puts "-=============1"
-    @messages = current_user.messages_received.group(:sender_name).page(params[:page])
-    puts "-=============2"
-    @messages_count = @messages.count
+    query = current_user.messages_received.group(:sender_name).except(:order)
+
+    @messages_count = {}
+    query.select("sender_name, count(sender_name) as message_count").each do |m|
+      @messages_count[m.sender_name] = m.message_count
+    end
+
+    query = query.select("max(created_at) as max_created_at")
+    created_at_arr = query.map(&:max_created_at)
+    query = current_user.messages_received.where(created_at: created_at_arr)
+    @messages =  query.page(params[:page])
 
     @message = current_user.messages_sended.build
   end

@@ -21,10 +21,12 @@ gem 'sass-rails', '4.0.3'
 gem 'uglifier', '2.1.1'
 gem 'coffee-rails', '4.0.1'
 
+# database
+gem 'pg', '0.17.1'
+
 # gem 'country_select'
 
 group :development, :test do
-  gem 'sqlite3', '1.3.8'
   gem 'rspec-rails', '2.14.2'
   gem 'guard-rspec', '4.2.8'
   gem 'spork-rails', '4.0.0'
@@ -53,8 +55,4 @@ end
 
 group :doc do
   gem 'sdoc', '0.3.20', require: false
-end
-
-group :production do
-  gem 'pg', '0.15.1'
 end
