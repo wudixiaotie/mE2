@@ -16,7 +16,7 @@ gem 'kaminari-bootstrap', '3.0.1'
 
 # assets
 gem 'jquery-rails', '2.2.1'
-gem 'bootstrap-sass', '3.1.1.0'
+gem 'bootstrap-sass', '3.1.1.1'
 gem 'sass-rails', '4.0.3'
 gem 'uglifier', '2.1.1'
 gem 'coffee-rails', '4.0.1'
