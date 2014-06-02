@@ -22,6 +22,7 @@ gem 'uglifier', '2.1.1'
 gem 'coffee-rails', '4.0.1'
 
 # gem 'country_select'
+  # gem 'faker', '1.3.0'
 
 group :development, :test do
   gem 'sqlite3', '1.3.8'
@@ -30,7 +31,7 @@ group :development, :test do
   gem 'spork-rails', '4.0.0'
   gem 'guard-spork', '1.5.1'
   gem 'childprocess', '0.3.6'
-  gem 'faker', '1.3.0'
+  # gem 'faker', '1.3.0'
 end
 
 group :test do
