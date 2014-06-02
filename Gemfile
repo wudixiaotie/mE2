@@ -22,7 +22,7 @@ gem 'uglifier', '2.1.1'
 gem 'coffee-rails', '4.0.1'
 
 # gem 'country_select'
-  # gem 'faker', '1.3.0'
+gem 'faker', '1.3.0'
 
 group :development, :test do
   gem 'sqlite3', '1.3.8'
