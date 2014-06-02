@@ -3,7 +3,9 @@ class MessagesController < ApplicationController
   before_action :correct_user, only: [:destroy]
 
   def index
+    puts "-=============1"
     @messages = current_user.messages_received.group(:sender_name).page(params[:page])
+    puts "-=============2"
     @messages_count = @messages.count
 
     @message = current_user.messages_sended.build
