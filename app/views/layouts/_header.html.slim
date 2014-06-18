@@ -30,9 +30,12 @@ div[class="navbar navbar-inverse navbar-fixed-top"
           = link_to "", help_path, class: "glyphicon glyphicon-question-sign btn-lg"
         - if signed_in?
           li
-            = link_to messages_path do
-              = content_tag :span, current_user.unread_message_count, class: "badge alert-info pull-right"
-              = content_tag :span, "", class: "glyphicon glyphicon-envelope btn-lg"
+            = link_to "", messages_path, class: "glyphicon glyphicon-envelope btn-lg"
+            = content_tag :span, current_user.unread_message_count, class: "badge alert-info pull-right header-message-alert"
+          / li
+          /   = link_to messages_path do
+          /     = content_tag :span, current_user.unread_message_count, class: "badge alert-info pull-right"
+          /     = content_tag :span, "", class: "glyphicon glyphicon-envelope btn-lg"
           li
             = link_to("", followers_user_path(current_user),
                       class: "glyphicon glyphicon-user btn-lg")

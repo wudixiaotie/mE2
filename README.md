@@ -60,3 +60,4 @@ REST API
  for sending message find user name
 
  1.sending message change from form submit to ajax so it can show flash
+ 2.can allow sending video pic and music
