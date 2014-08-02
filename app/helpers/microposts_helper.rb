@@ -4,11 +4,12 @@ module MicropostsHelper
                           wrap_long_string(s)
                         end.join(" ")
 
-    if micropost.in_reply_to
-      in_reply_to_name = "@#{micropost.in_reply_to_user.name}:"
+    if micropost.in_reply_to.present?
+      reply_to_user = micropost.in_reply_to_micropost.user
+      in_reply_to_name = "@#{reply_to_user.name}:"
       micropost.content.sub!(in_reply_to_name,
                              link_to(in_reply_to_name,
-                                     micropost.in_reply_to_user))
+                                     reply_to_user))
     end
     sanitize(raw(micropost.content))
   end

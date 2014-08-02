@@ -3,6 +3,7 @@
                    role: "form" }) do |f|
 
   = render "shared/error_messages", object: f.object
+  = f.hidden_field :in_reply_to
 
   div.form-group
     div.col-xs-12

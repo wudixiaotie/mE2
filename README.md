@@ -61,3 +61,4 @@ REST API
 
  1.sending message change from form submit to ajax so it can show flash
  2.can allow sending video pic and music
+ 3.in_reply_to 是关联micropost_id 并且每条微薄后要显示回复的围脖

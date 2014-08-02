@@ -4,10 +4,10 @@ div.row
       = render "shared/user_info"
     section
       = render "shared/stats"
-    section
+    section id="micropost_form_container"
       = render "shared/micropost_form"
   div.col-sm-8
     h3
       | Micropost Feed
-    = render "shared/feed"    
+    = render "shared/feed"
     = render "shared/micropost_modal"

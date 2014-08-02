@@ -9,7 +9,8 @@ span.timestamp
                 "Reply",
                 href: "javascript:;",
                 class: "hover-visiable reply-button",
-                data: { name: micropost.user.name })
+                data: { name: micropost.user.name,
+                        id: micropost.id })
   '
   - if current_user?(micropost.user)
     = link_to("delete", micropost, method: :delete,

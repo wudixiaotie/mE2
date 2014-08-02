@@ -1,7 +1,7 @@
-source 'https://rubygems.org'
+source 'http://ruby.taobao.org'
 ruby '2.1.1'
 
-gem 'rails', '4.1.0'
+gem 'rails', '4.1.1'
 gem 'turbolinks', '1.1.1'
 gem 'jbuilder', '1.0.2'
 gem 'bcrypt-ruby', '3.1.2'
@@ -33,6 +33,9 @@ group :development, :test do
   gem 'guard-spork', '1.5.1'
   gem 'childprocess', '0.3.6'
   gem 'faker', '1.3.0'
+  # Use debugger
+  gem 'pry-rails', '0.3.2'
+  gem 'pry-byebug', '1.3.3'
 end
 
 group :test do

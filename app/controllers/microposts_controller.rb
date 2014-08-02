@@ -4,15 +4,6 @@ class MicropostsController < ApplicationController
 
   def create
     @micropost = current_user.microposts.build(micropost_params)
-    
-    if @micropost.content[0] == "@"
-      in_reply_to_name = @micropost.content.split(":")[0].delete("@")
-      in_reply_to_user = User.find_by(name: in_reply_to_name)
-
-      if in_reply_to_user
-        @micropost.in_reply_to = in_reply_to_user.id
-      end
-    end
 
     if @micropost.save
       redirect_to root_path, flash: { success: "Micropost created!" }
@@ -29,7 +20,7 @@ class MicropostsController < ApplicationController
 
   private
     def micropost_params
-      params.require(:micropost).permit(:content)
+      params.require(:micropost).permit(:content, :in_reply_to)
     end
 
     # Before filters
